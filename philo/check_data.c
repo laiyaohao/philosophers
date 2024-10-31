@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/10/31 16:44:55 by ylai             ###   ########.fr       */
+/*   Created: 2024/10/31 16:12:29 by ylai              #+#    #+#             */
+/*   Updated: 2024/10/31 16:21:03 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	check_data(t_ph_da *ph_params)
 {
-	t_ph_da	ph_data;
-	t_table	table;
-	prt_argc_msg(argc);
-	init_data(&ph_data);
-	store_params(argc, argv, &ph_data);
-	check_data(&ph_data);
-	init_table(&table, &ph_data);
-	
-	return (0);
+	if (ph_params->philo_num == 0 || ph_params->time_to_die == 0
+		|| ph_params->time_to_eat == 0
+		|| ph_params->time_to_sleep == 0 || ph_params->must_eat_num == 0)
+	{
+		printf("Error: some parameters are 0\n");
+		exit(1);
+	}
 }

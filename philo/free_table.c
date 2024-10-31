@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/10/31 16:44:55 by ylai             ###   ########.fr       */
+/*   Created: 2024/10/31 18:10:51 by ylai              #+#    #+#             */
+/*   Updated: 2024/10/31 18:10:52 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	free_table(t_table *table, t_ph_da *ph_params)
 {
-	t_ph_da	ph_data;
-	t_table	table;
-	prt_argc_msg(argc);
-	init_data(&ph_data);
-	store_params(argc, argv, &ph_data);
-	check_data(&ph_data);
-	init_table(&table, &ph_data);
-	
-	return (0);
+	int	i;
+
+	i = 0;
+	while (i < ph_params->philo_num)
+	{
+		pthread_mutex_destroy(&(table->forks[i]));
+		i++;
+	}
+	free(table->forks);
+	free(table->philo);
 }

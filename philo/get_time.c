@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/10/31 16:44:55 by ylai             ###   ########.fr       */
+/*   Created: 2024/10/31 19:02:51 by ylai              #+#    #+#             */
+/*   Updated: 2024/10/31 19:02:52 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
-{
-	t_ph_da	ph_data;
-	t_table	table;
-	prt_argc_msg(argc);
-	init_data(&ph_data);
-	store_params(argc, argv, &ph_data);
-	check_data(&ph_data);
-	init_table(&table, &ph_data);
-	
-	return (0);
+int main() {
+  struct timeval current_time;
+  gettimeofday(&current_time, NULL);
+  printf("seconds : %ld\nmicro seconds : %ld\n",
+    current_time.tv_sec, current_time.tv_usec);
+
+  return 0;
 }
