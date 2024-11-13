@@ -28,6 +28,8 @@ void	init_forks(t_table *table, t_ph_da *ph_params)
 	}
 }
 
+void	init_philo(t_table *table, t_ph_da *ph_params);
+
 void	init_table(t_table *table, t_ph_da *ph_params)
 {
 	table->philo = malloc(sizeof(pthread_t *) * ph_params->philo_num);
@@ -43,4 +45,5 @@ void	init_table(t_table *table, t_ph_da *ph_params)
 		exit(1);
 	}
 	init_forks(table, ph_params);
+	init_philo(table, ph_params);
 }

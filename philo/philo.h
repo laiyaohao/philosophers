@@ -35,6 +35,11 @@ typedef struct s_table
 	pthread_mutex_t				*forks;
 }							t_table;
 
+typedef struct s_ph_stat
+{
+	int		dead;
+	long			left_to_die;
+}							t_ph_stat;
 
 
 void	prt_argc_msg(int argc);
