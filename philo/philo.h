@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/10/31 17:00:14 by ylai             ###   ########.fr       */
+/*   Updated: 2024/11/16 16:54:30 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ void	prt_argc_msg(int argc);
 void	store_params(int argc, char **argv, t_ph_da *ph_params);
 void	init_data(t_ph_da *ph_params);
 void	check_data(t_ph_da *ph_params);
+void	init_table(t_table *table, t_ph_da *ph_params, t_ph_stat **ph_stat);
+void	free_table(t_table *table, t_ph_da *ph_params, t_ph_stat *ph_stat);
 
 #endif

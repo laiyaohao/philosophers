@@ -6,7 +6,7 @@
 #    By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/27 17:31:03 by ylai              #+#    #+#              #
-#    Updated: 2024/10/31 18:57:19 by ylai             ###   ########.fr        #
+#    Updated: 2024/11/16 14:57:57 by ylai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME := philo
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra -g
 SRCS_FILE_NAMES := main prt_argc_msg init_data store_params check_data \
-									init_table
+									init_table free_table
 SRCS := ${addsuffix .c, ${SRCS_FILE_NAMES}}
 OBJS := ${SRCS:.c=.o}
 
