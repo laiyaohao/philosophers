@@ -25,7 +25,7 @@ void	free_forks(t_table *table, t_ph_da *ph_params)
 	free(table->forks);
 }
 
-void	free_philo(t_table *table, t_ph_da *ph_params)
+void	free_philo(t_ph_stat **philo, t_ph_da *ph_params)
 {
 	unsigned long	i;
 	void	*res;
@@ -34,11 +34,11 @@ void	free_philo(t_table *table, t_ph_da *ph_params)
 	res = NULL;
 	while (i < ph_params->philo_num)
 	{
-		pthread_join(table->philo[i], &res);
+		pthread_join(philo[i]->t_id, &res);
 		i++;
 	}
 	free(res);
-	free(table->philo);
+	// free(*philo);
 }
 
 // void	free_stat(t_ph_da	*ph_params, t_ph_stat *ph_stat)
@@ -53,10 +53,12 @@ void	free_philo(t_table *table, t_ph_da *ph_params)
 // 	}
 // }
 
-void	free_table(t_table *table, t_ph_da *ph_params, t_ph_stat *ph_stat)
+void	free_table(t_table *table, t_ph_da *ph_params)
 {
 	free_forks(table, ph_params);
-	free_philo(table, ph_params);
-	(void)ph_stat;
+	free_philo(&(table->philo), ph_params);
+	printf("test\n");
+	free(table->philo);
+	// (void)ph_stat;
 	// free(ph_stat);
 }

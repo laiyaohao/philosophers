@@ -29,24 +29,25 @@ typedef struct s_ph_da
 	unsigned long				must_eat_num;
 }							t_ph_da;
 
-typedef struct s_table
-{
-	pthread_t					*philo;
-	pthread_mutex_t				*forks;
-}							t_table;
-
 typedef struct s_ph_stat
 {
+	pthread_t			t_id;
 	int		dead;
 	long			left_to_die;
 }							t_ph_stat;
+
+typedef struct s_table
+{
+	t_ph_stat					*philo;
+	pthread_mutex_t				*forks;
+}							t_table;
 
 
 void	prt_argc_msg(int argc);
 void	store_params(int argc, char **argv, t_ph_da *ph_params);
 void	init_data(t_ph_da *ph_params);
 void	check_data(t_ph_da *ph_params);
-void	init_table(t_table *table, t_ph_da *ph_params, t_ph_stat **ph_stat);
-void	free_table(t_table *table, t_ph_da *ph_params, t_ph_stat *ph_stat);
+void	init_table(t_table *table, t_ph_da *ph_params);
+void	free_table(t_table *table, t_ph_da *ph_params);
 
 #endif

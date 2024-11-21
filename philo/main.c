@@ -16,15 +16,14 @@ int	main(int argc, char **argv)
 {
 	t_ph_da	ph_data;
 	t_table	table;
-	t_ph_stat *ph_stat;
 	
 	prt_argc_msg(argc);
 	init_data(&ph_data);
 	store_params(argc, argv, &ph_data);
 	check_data(&ph_data);
-	init_table(&table, &ph_data, &ph_stat);
+	init_table(&table, &ph_data);
 	// free(ph_stat);
-	free_table(&table, &ph_data, ph_stat);
-	free(ph_stat);
+	free_table(&table, &ph_data);
+	// free(ph_stat);
 	return (0);
 }
