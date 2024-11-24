@@ -14,16 +14,20 @@
 
 int	main(int argc, char **argv)
 {
+	int	mu_err;
+	int	tr_err;
 	t_ph_da	ph_data;
 	t_table	table;
 	
+	tr_err = 0;
+	mu_err = 0;
 	prt_argc_msg(argc);
 	init_data(&ph_data);
 	store_params(argc, argv, &ph_data);
 	check_data(&ph_data);
-	init_table(&table, &ph_data);
+	init_table(&table, &ph_data, &mu_err, &tr_err);
 	// free(ph_stat);
-	free_table(&table, &ph_data);
+	free_table(&table, &ph_data, &mu_err, &tr_err);
 	// free(ph_stat);
 	return (0);
 }

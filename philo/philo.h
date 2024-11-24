@@ -47,7 +47,7 @@ void	prt_argc_msg(int argc);
 void	store_params(int argc, char **argv, t_ph_da *ph_params);
 void	init_data(t_ph_da *ph_params);
 void	check_data(t_ph_da *ph_params);
-void	init_table(t_table *table, t_ph_da *ph_params);
-void	free_table(t_table *table, t_ph_da *ph_params);
+void	init_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err);
+void	free_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err);
 
 #endif
