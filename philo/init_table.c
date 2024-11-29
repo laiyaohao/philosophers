@@ -33,19 +33,15 @@ static void *strt_rou(void *arg)
 {
 	// t_ph_stat	*tinfo = arg;
 	// char *uargv;
-	(void)arg;
+	t_ph_stat *philo;
+	
+	philo = arg;
 
-	// printf("dead: %d, time left: %ld\n", tinfo->dead,
-	// tinfo->left_to_die);
-
-	// uargv = strdup(tinfo->argv_string);
-	// if (uargv == NULL)
-	// 		handle_error("strdup");
-
-	// for (char *p = uargv; *p != '\0'; p++)
-	// 		*p = toupper(*p);
-
-	// return uargv;
+	printf("dead: %d\n", philo->number);
+	if (philo->number % 2)
+		printf("eating\n");
+	else
+		printf("sleeping\n");
 	return NULL;
 }
 
@@ -58,6 +54,7 @@ void	init_philo(t_ph_stat *philo, t_ph_da *ph_params, int *tr_err)
 	j = 1;
 	while (i < ph_params->philo_num)
 	{
+		philo[i].number = i + 1;
 		philo[i].dead = -1;
 		philo[i].left_to_die = ph_params->time_to_die;
 		j = pthread_create(&(philo[i].t_id), NULL, &strt_rou, &philo[i]);
@@ -87,4 +84,10 @@ void	init_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err)
 	}
 	init_forks(table, ph_params, mu_err);
 	init_philo(table->philo, ph_params, tr_err);
+	// unsigned long i = 0;
+	// while (i < ph_params->philo_num)
+	// {
+	// 	printf("philo[i].dead: %d\n", table->philo[i].dead);
+	// 	i++;
+	// }
 }

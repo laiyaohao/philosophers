@@ -31,6 +31,7 @@ typedef struct s_ph_da
 
 typedef struct s_ph_stat
 {
+	unsigned int	number;
 	pthread_t			t_id;
 	int		dead;
 	long			left_to_die;

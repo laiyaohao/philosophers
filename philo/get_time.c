@@ -14,7 +14,8 @@
 
 int main() {
   struct timeval current_time;
-  gettimeofday(&current_time, NULL);
+  int gt = gettimeofday(&current_time, NULL);
+  printf("gt: %d\n", gt);
   printf("seconds : %ld\nmicro seconds : %ld\n",
     current_time.tv_sec, current_time.tv_usec);
 
