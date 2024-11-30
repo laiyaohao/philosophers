@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/16 16:55:47 by ylai             ###   ########.fr       */
+/*   Updated: 2024/11/30 18:02:34 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 	check_data(&ph_data);
 	init_table(&table, &ph_data, &mu_err, &tr_err);
 	// free(ph_stat);
+	start(&table, &ph_data);
 	free_table(&table, &ph_data, &mu_err, &tr_err);
 	// free(ph_stat);
 	return (0);
