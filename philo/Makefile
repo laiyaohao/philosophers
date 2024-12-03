@@ -13,10 +13,31 @@
 NAME := philo
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra -g
-SRCS_FILE_NAMES := main prt_argc_msg init_data store_params check_data \
-									init_table free_table
-SRCS := ${addsuffix .c, ${SRCS_FILE_NAMES}}
-OBJS := ${SRCS:.c=.o}
+SRC_FOLDER := src/
+
+INIT_FOLDER := init/
+INIT_FILE_NAMES := check_data init_data store_params init_table
+INIT_FILES := ${addprefix ${INIT_FOLDER}, ${addsuffix .c, ${INIT_FILE_NAMES}}}
+
+CLEANUP_FOLDER := cleanup/
+CLEANUP_FILE_NAMES := free_table
+CLEANUP_FILES := \
+			${addprefix ${CLEANUP_FOLDER}, ${addsuffix .c, ${CLEANUP_FILE_NAMES}}}
+
+UTILS_FOLDER := utils/
+UTILS_FILE_NAMES := ft_atol prt_argc_msg
+UTILS_FILES := \
+			${addprefix ${UTILS_FOLDER}, ${addsuffix .c, ${UTILS_FILE_NAMES}}}
+
+MAIN_FOLDER := main/
+MAIN_FILE_NAMES := main
+MAIN_FILES := ${addprefix ${MAIN_FOLDER}, ${addsuffix .c, ${MAIN_FILE_NAMES}}}
+
+SRC := ${addprefix ${SRC_FOLDER}, ${INIT_FILES}} \
+			${addprefix ${SRC_FOLDER}, ${CLEANUP_FILES}} \
+			${addprefix ${SRC_FOLDER}, ${UTILS_FILES}} \
+			${addprefix ${SRC_FOLDER}, ${MAIN_FILES}}
+OBJS := ${SRC:.c=.o}
 
 
 all: ${NAME}

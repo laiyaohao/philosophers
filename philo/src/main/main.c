@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../../inc/philo.h"
 
 int	main(int argc, char **argv)
 {
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	check_data(&ph_data);
 	init_table(&table, &ph_data, &mu_err, &tr_err);
 	// free(ph_stat);
-	start(&table, &ph_data);
+	// start(&table, &ph_data);
 	free_table(&table, &ph_data, &mu_err, &tr_err);
 	// free(ph_stat);
 	return (0);

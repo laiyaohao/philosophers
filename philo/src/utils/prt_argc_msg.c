@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_data.c                                        :+:      :+:    :+:   */
+/*   prt_argc_msg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 15:30:52 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/16 14:27:31 by ylai             ###   ########.fr       */
+/*   Created: 2024/10/31 15:10:44 by ylai              #+#    #+#             */
+/*   Updated: 2024/10/31 16:17:16 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../../inc/philo.h"
 
-void	init_data(t_ph_da *ph_params)
+void	prt_argc_msg(int argc)
 {
-	ph_params->philo_num = 0;
-	ph_params->time_to_die = 0;
-	ph_params->time_to_eat = 0;
-	ph_params->time_to_sleep = 0;
-	ph_params->must_eat_num = -1;
+	if (argc < 5 || argc > 6)
+	{
+		printf("Usage: ./philo [number_of_philosophers] [time_to_die] \
+		[time_to_eat] [time_to_sleep] \
+		optional: [number_of_times_each_philosopher_must_eat]\n");
+		exit(1);
+	}
 }

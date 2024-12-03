@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../../inc/philo.h"
 
 void	init_forks(t_table *table, t_ph_da *ph_params, int *mu_err)
 {

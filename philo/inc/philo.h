@@ -35,6 +35,8 @@ typedef struct s_ph_stat
 	pthread_t			t_id;
 	int		dead;
 	long			left_to_die;
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
 }							t_ph_stat;
 
 typedef struct s_table
@@ -44,11 +46,14 @@ typedef struct s_table
 }							t_table;
 
 
-void	prt_argc_msg(int argc);
 void	store_params(int argc, char **argv, t_ph_da *ph_params);
 void	init_data(t_ph_da *ph_params);
 void	check_data(t_ph_da *ph_params);
 void	init_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err);
 void	free_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err);
+
+// utils functions
+unsigned long	ft_atol(const char *nptr);
+void	prt_argc_msg(int argc);
 
 #endif

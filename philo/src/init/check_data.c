@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prt_argc_msg.c                                     :+:      :+:    :+:   */
+/*   check_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 15:10:44 by ylai              #+#    #+#             */
-/*   Updated: 2024/10/31 16:17:16 by ylai             ###   ########.fr       */
+/*   Created: 2024/10/31 16:12:29 by ylai              #+#    #+#             */
+/*   Updated: 2024/10/31 16:21:03 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../../inc/philo.h"
 
-void	prt_argc_msg(int argc)
+void	check_data(t_ph_da *ph_params)
 {
-	if (argc < 5 || argc > 6)
+	if (ph_params->philo_num == 0 || ph_params->time_to_die == 0
+		|| ph_params->time_to_eat == 0
+		|| ph_params->time_to_sleep == 0 || ph_params->must_eat_num == 0)
 	{
-		printf("Usage: ./philo [number_of_philosophers] [time_to_die] \
-		[time_to_eat] [time_to_sleep] \
-		optional: [number_of_times_each_philosopher_must_eat]\n");
+		printf("Error: some parameters are 0\n");
 		exit(1);
 	}
 }
