@@ -12,13 +12,13 @@
 
 #include "../../inc/philo.h"
 
-void	check_data(t_ph_da *ph_params)
+void	check_data(t_table *table)
 {
-	if (ph_params->philo_num == 0 || ph_params->time_to_die == 0
-		|| ph_params->time_to_eat == 0
-		|| ph_params->time_to_sleep == 0 || ph_params->must_eat_num == 0)
+	if (table->philo_num <= 0 || table->time_to_die <= 0
+		|| table->time_to_eat <= 0
+		|| table->time_to_sleep <= 0 || table->must_eat_num <= 0)
 	{
-		printf("Error: some parameters are 0\n");
+		printf("Error: some parameters are lesser or equal to 0\n");
 		exit(1);
 	}
 }

@@ -20,40 +20,45 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_ph_da
+typedef struct s_ph_stat
+{
+	size_t		start_time;
+	unsigned int	number;
+	pthread_t			t_id;
+	int		dead;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	unsigned long		times_eaten;
+	size_t	meal_time;
+	// pthread_mutex_t	*prt_mut;
+	int	eating;
+}							t_ph_stat;
+
+typedef struct s_table
 {
 	unsigned long				philo_num;
 	unsigned long				time_to_die;
 	unsigned long				time_to_eat;
 	unsigned long				time_to_sleep;
 	unsigned long				must_eat_num;
-}							t_ph_da;
-
-typedef struct s_ph_stat
-{
-	unsigned int	number;
-	pthread_t			t_id;
-	int		dead;
-	long			left_to_die;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
-}							t_ph_stat;
-
-typedef struct s_table
-{
 	t_ph_stat					*philo;
-	pthread_mutex_t				*forks;
+	pthread_t					checker;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		prt_mut;
+	pthread_mutex_t		dead_mut;
 }							t_table;
 
 
-void	store_params(int argc, char **argv, t_ph_da *ph_params);
-void	init_data(t_ph_da *ph_params);
-void	check_data(t_ph_da *ph_params);
-void	init_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err);
-void	free_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err);
+void	store_params(int argc, char **argv, t_table *table);
+void	init_data(t_table *table);
+void	check_data(t_table *table);
+void	init_table(t_table *table, int *mu_err, int *tr_err);
+void	free_table(t_table *table, int *mu_err, int *tr_err);
 
 // utils functions
 unsigned long	ft_atol(const char *nptr);
 void	prt_argc_msg(int argc);
+size_t	get_time(void);
+void	*check(void *arg);
 
 #endif

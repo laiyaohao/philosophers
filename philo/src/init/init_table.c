@@ -12,12 +12,12 @@
 
 #include "../../inc/philo.h"
 
-void	init_forks(t_table *table, t_ph_da *ph_params, int *mu_err)
+void	init_forks(t_table *table, int *mu_err)
 {
 	unsigned long	i;
 
 	i = 0;
-	while (i < ph_params->philo_num)
+	while (i < table->philo_num)
 	{
 		if (pthread_mutex_init(&(table->forks[i]), NULL) != 0)
 		{
@@ -45,45 +45,52 @@ static void *strt_rou(void *arg)
 	return NULL;
 }
 
-void	init_philo(t_ph_stat *philo, t_ph_da *ph_params, int *tr_err)
+void	init_philo(t_table *table)
 {
 	unsigned long	i;
 	int	j;
 
 	i = 0;
-	j = 1;
-	while (i < ph_params->philo_num)
+	// j = 1;
+	while (i < table->philo_num)
 	{
-		philo[i].number = i + 1;
-		philo[i].dead = -1;
-		philo[i].left_to_die = ph_params->time_to_die;
-		j = pthread_create(&(philo[i].t_id), NULL, &strt_rou, &philo[i]);
-		if (j != 0)
-		{
-			printf("Error: pthread_mutex_init failed\n");
-			*tr_err = 1;
-			return ;
-		}
+		table->philo[i].number = i + 1;
+		table->philo[i].dead = -1;
+		table->philo[i].start_time = get_time();
+		// j = pthread_create(&(philo[i].t_id), NULL, &strt_rou, &philo[i]);
+		// if (j != 0)
+		// {
+		// 	printf("Error: pthread_mutex_init failed\n");
+		// 	*tr_err = 1;
+		// 	return ;
+		// }
+		table->philo[i].times_eaten = 0;
+		table->philo[i].meal_time = get_time();
+		table->philo[i].left_fork = &(table->forks[i]);
+		if (i == 0)
+			table->philo[i].right_fork = &(table->forks[table->philo_num - 1]);
+		else
+			table->philo[i].right_fork = &(table->forks[i - 1]);
 		i++;
 	}
 }
 
-void	init_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err)
+void	init_table(t_table *table, int *mu_err, int *tr_err)
 {
-	table->philo = malloc(sizeof(t_ph_stat) * ph_params->philo_num);
+	table->philo = malloc(sizeof(t_ph_stat) * table->philo_num);
 	if (table->philo == NULL)
 	{
 		printf("Error: malloc failed for the status of each philosopher\n");
 		exit(1);
 	}
-	table->forks = malloc(sizeof(pthread_mutex_t) * ph_params->philo_num);
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_num);
 	if (table->forks == NULL)
 	{
 		printf("Error: malloc failed for number of forks\n");
 		exit(1);
 	}
-	init_forks(table, ph_params, mu_err);
-	init_philo(table->philo, ph_params, tr_err);
+	init_forks(table, mu_err);
+	init_philo(table);
 	// unsigned long i = 0;
 	// while (i < ph_params->philo_num)
 	// {

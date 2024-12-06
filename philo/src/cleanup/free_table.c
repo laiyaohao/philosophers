@@ -12,12 +12,12 @@
 
 #include "../../inc/philo.h"
 
-void	free_forks(t_table *table, t_ph_da *ph_params, int mu_err)
+void	free_forks(t_table *table, int mu_err)
 {
 	unsigned long	i;
 
 	i = 0;
-	while (!mu_err && i < ph_params->philo_num)
+	while (!mu_err && i < table->philo_num)
 	{
 		pthread_mutex_destroy(&(table->forks[i]));
 		i++;
@@ -25,7 +25,7 @@ void	free_forks(t_table *table, t_ph_da *ph_params, int mu_err)
 	free(table->forks);
 }
 
-void	free_philo(t_ph_stat *philo, t_ph_da *ph_params, int tr_err)
+void	free_philo(t_table *table, int tr_err)
 {
 	unsigned long	i;
 	void	*res;
@@ -34,13 +34,19 @@ void	free_philo(t_ph_stat *philo, t_ph_da *ph_params, int tr_err)
 	i = 0;
 	res = NULL;
 	s = -1;
-	while (!tr_err && i < ph_params->philo_num)
+	if (!tr_err)
 	{
-		s = pthread_join(philo[i].t_id, &res);
-		if (s != 0)
+		if (pthread_join(table->checker, &res) != 0)
+			printf("pthread_join error\m");
+		free(res);
+		res = NULL;
+	}
+	while (!tr_err && i < table->philo_num)
+	{
+		if (pthread_join(table->philo[i].t_id, &res) != 0)
 		{
 			printf("pthread_join error\n");
-			exit(1);
+			return ;
 		}
 		i++;
 		free(res);
@@ -48,9 +54,9 @@ void	free_philo(t_ph_stat *philo, t_ph_da *ph_params, int tr_err)
 	}
 }
 
-void	free_table(t_table *table, t_ph_da *ph_params, int *mu_err, int *tr_err)
+void	free_table(t_table *table, int *mu_err, int *tr_err)
 {
-	free_forks(table, ph_params, *mu_err);
-	free_philo(table->philo, ph_params, *tr_err);
+	free_forks(table, *mu_err);
+	free_philo(table, *tr_err);
 	free(table->philo);
 }

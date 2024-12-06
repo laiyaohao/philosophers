@@ -26,21 +26,21 @@ int	check_param(char *param)
 	return (1);
 }
 
-void	store_params_helper(unsigned long num, int i, t_ph_da *ph_params)
+void	store_params_helper(unsigned long num, int i, t_table *table)
 {
 	if (i == 1)
-		ph_params->philo_num = num;
+		table->philo_num = num;
 	if (i == 2)
-		ph_params->time_to_die = num;
+		table->time_to_die = num;
 	if (i == 3)
-		ph_params->time_to_eat = num;
+		table->time_to_eat = num;
 	if (i == 4)
-		ph_params->time_to_sleep = num;
+		table->time_to_sleep = num;
 	if (i == 5)
-		ph_params->must_eat_num = num;
+		table->must_eat_num = num;
 }
 
-void	store_params(int argc, char **argv, t_ph_da *ph_params)
+void	store_params(int argc, char **argv, t_table *table)
 {
 	int	i;
 	char	*param;
@@ -57,7 +57,7 @@ void	store_params(int argc, char **argv, t_ph_da *ph_params)
 			exit(1);
 		}
 		num = ft_atol(param);
-		store_params_helper(num, i, ph_params);
+		store_params_helper(num, i, table);
 		i++;
 	}
 }

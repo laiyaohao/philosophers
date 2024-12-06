@@ -12,11 +12,11 @@
 
 #include "../../inc/philo.h"
 
-void	init_data(t_ph_da *ph_params)
+void	init_data(t_table *table)
 {
-	ph_params->philo_num = 0;
-	ph_params->time_to_die = 0;
-	ph_params->time_to_eat = 0;
-	ph_params->time_to_sleep = 0;
-	ph_params->must_eat_num = -1;
+	table->philo_num = 0;
+	table->time_to_die = 0;
+	table->time_to_eat = 0;
+	table->time_to_sleep = 0;
+	table->must_eat_num = -1;
 }

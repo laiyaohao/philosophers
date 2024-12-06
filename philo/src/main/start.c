@@ -10,28 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "../../inc/philo.h"
 
-int	check_death(t_table *table, t_ph_da *ph_da)
-{
-	unsigned int	i;
-	int	j;
 
-	i = 0;
-	j = -1;
-	while (i < ph_da->philo_num)
-	{
-		if (table->philo[i].left_to_die <= 0)
-		{
-			j = table->philo[i].number;
-			break;
-		}
-		i++;
-	}
-	return (j);
-}
 
-void	start_odd(t_table *table, t_ph_da *ph_da)
+void	start_odd(t_table *table)
 {
 	int	dead;
 	int	i;
@@ -63,22 +46,46 @@ void	start_odd(t_table *table, t_ph_da *ph_da)
 	}
 }
 
-void	start_even(t_table *table, t_ph_da *ph_da)
+void	strt_rou(t_table *table)
 {
 	
 }
 
-void	start(t_table *table, t_ph_da *ph_da)
+void	start(t_table *table, int *tr_err)
 {
 	int	i;
 
 	i = 0;
-	if (ph_da->philo_num % 2)
+	if (pthread_create(&(table->checker), NULL, &(check), table) != 0)
 	{
-		start_odd(table, ph_da);
+		printf("Error: pthread_create failed\n");
+		*tr_err = 1;
+		return ;
 	}
-	else
+	while (i < table->philo_num)
 	{
-		start_even(table, ph_da);
+		if (pthread_craete(&table->philo[i].t_id), NULL, &strt_rou, &table != 0)
+		{
+			printf("Error: pthread_create failed\n");
+			*tr_err = 1;
+			return ;
+		}
+		i++;
 	}
+	// if (table->philo_num % 2)
+	// {
+	// 	// start_odd(table, ph_da);
+	// 	// delay
+	// }
+	// else
+	// {
+	// 	start_even(table);
+	// }
+	// j = pthread_create(&(philo[i].t_id), NULL, &strt_rou, &philo[i]);
+	// if (j != 0)
+	// {
+	// 	printf("Error: pthread_mutex_init failed\n");
+	// 	*tr_err = 1;
+	// 	return ;
+	// }
 }
