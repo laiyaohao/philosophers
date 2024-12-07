@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:46:13 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 17:52:24 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 19:09:21 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_forks(t_table *table)
 		printf("Error: malloc failed for number of forks\n");
 		return (-2);
 	}
-	while (i < table->philo_num)
+	while ((unsigned long)i < table->philo_num)
 	{
 		if (pthread_mutex_init(&(table->forks[i]), NULL) != 0)
 		{
@@ -54,26 +54,20 @@ int	init_forks(t_table *table)
 void	init_philo(t_table *table)
 {
 	unsigned long	i;
-	int	j;
 
 	i = 0;
-	// j = 1;
 	while (i < table->philo_num)
 	{
 		table->philo[i].number = i + 1;
 		table->philo[i].dead = -1;
 		table->philo[i].start_time = get_time();
-		// j = pthread_create(&(philo[i].t_id), NULL, &strt_rou, &philo[i]);
-		// if (j != 0)
-		// {
-		// 	printf("Error: pthread_mutex_init failed\n");
-		// 	*tr_err = 1;
-		// 	return ;
-		// }
 		table->philo[i].dead_mut = &(table->dead_mut);
 		table->philo[i].meal_mut = &(table->meal_mut);
+		table->philo[i].prt_mut = &(table->prt_mut);
 		table->philo[i].times_eaten = 0;
 		table->philo[i].meal_time = get_time();
+		table->philo[i].time_to_eat = table->time_to_eat;
+		table->philo[i].time_to_sleep = table->time_to_sleep;
 		table->philo[i].left_fork = &(table->forks[i]);
 		if (i == 0)
 			table->philo[i].right_fork = &(table->forks[table->philo_num - 1]);
@@ -111,14 +105,6 @@ void	init_table(t_table *table)
 		printf("Error: malloc failed for the status of each philosopher\n");
 		exit(1);
 	}
-	
-	// init_forks(table, mu_err);
-	// init_mut(table);
 	init_philo(table);
-	// unsigned long i = 0;
-	// while (i < ph_params->philo_num)
-	// {
-	// 	printf("philo[i].dead: %d\n", table->philo[i].dead);
-	// 	i++;
 	// }
 }

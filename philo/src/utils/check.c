@@ -22,7 +22,7 @@ int find_death(t_table *table)
 	{
 		if (is_dead(table, i))
 		{
-			print(table, i, "is dead");
+			print(&(table->philo[i]), "is dead");
 			pthread_mutex_lock(&(table->dead_mut));
 			table->philo[i].dead = 1;
 			pthread_mutex_unlock(&(table->dead_mut));
@@ -40,15 +40,15 @@ int ful_meal_req(t_table *table)
 
 	i = 0;
 	ful = 0;
-	if (table->must_eat_num == -1)
+	if (table->must_eat_num == -1UL)
 		return (0);
-	while (i < table->philo_num)
+	while ((unsigned long)i < table->philo_num)
 	{
 		if (table->philo[i].times_eaten >= table->must_eat_num)
 			ful++;
 		i++;
 	}
-	if (ful == table->philo_num)
+	if ((unsigned long)ful == table->philo_num)
 	{
 		pthread_mutex_lock(&(table->dead_mut));
 		table->philo[i].dead = 1;

@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 17:44:03 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 19:11:11 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ typedef struct s_ph_stat
 	size_t	meal_time;
 	pthread_mutex_t	*meal_mut;
 	pthread_mutex_t	*dead_mut;
+	pthread_mutex_t	*prt_mut;
 	int	eating;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
 }							t_ph_stat;
 
 typedef struct s_table
@@ -63,11 +66,16 @@ unsigned long	ft_atol(const char *nptr);
 void	prt_argc_msg(int argc);
 size_t	get_time(void);
 void	*check(void *arg);
-void  print(t_table *table, unsigned int num, char *msg);
+void  print(t_ph_stat *philo, char *msg);
 
 // cleanup functions
 void	free_philo(t_table *table, int tr_err);
 void	free_table(t_table *table, int mu_err, int tr_err, int fr_err);
 
+// main functions
+int	start(t_table *table);
+void	eat(t_ph_stat *philo);
+void	kun(t_ph_stat *philo);
+void	think(t_ph_stat *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:10:51 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 16:46:29 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 18:16:01 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	free_forks(t_table *table, int fr_err)
 {
-	unsigned long	i;
+	int	i;
 
 	i = 0;
-	while (fr_err == -1 && i < table->philo_num)
+	while (fr_err == -1 && (unsigned long)i < table->philo_num)
 	{
 		pthread_mutex_destroy(&(table->forks[i]));
 		i++;

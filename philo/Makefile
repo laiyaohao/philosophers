@@ -6,7 +6,7 @@
 #    By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/27 17:31:03 by ylai              #+#    #+#              #
-#    Updated: 2024/12/07 17:30:34 by ylai             ###   ########.fr        #
+#    Updated: 2024/12/07 19:16:15 by ylai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ CLEANUP_FILES := \
 			${addprefix ${CLEANUP_FOLDER}, ${addsuffix .c, ${CLEANUP_FILE_NAMES}}}
 
 UTILS_FOLDER := utils/
-UTILS_FILE_NAMES := ft_atol prt_argc_msg
+UTILS_FILE_NAMES := ft_atol prt_argc_msg get_time check print
 UTILS_FILES := \
 			${addprefix ${UTILS_FOLDER}, ${addsuffix .c, ${UTILS_FILE_NAMES}}}
 
 MAIN_FOLDER := main/
-MAIN_FILE_NAMES := main
+MAIN_FILE_NAMES := main start actions
 MAIN_FILES := ${addprefix ${MAIN_FOLDER}, ${addsuffix .c, ${MAIN_FILE_NAMES}}}
 
 SRC := ${addprefix ${SRC_FOLDER}, ${INIT_FILES}} \

@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:02:43 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 17:49:44 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 19:14:11 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@
 
 int check_death(t_ph_stat *philo)
 {
-	pthread_mutex_lock(&(philo->dead_mut));
+	pthread_mutex_lock(philo->dead_mut);
 	if (philo->dead == 1)
 	{
-		pthread_mutex_unlock(&(philo->dead_mut));
+		pthread_mutex_unlock(philo->dead_mut);
 		return (1);
 	}
-	pthread_mutex_unlock(&(philo->dead_mut));
+	pthread_mutex_unlock(philo->dead_mut);
 	return (0);
 }
 
-void	strt_rou(void *arg)
+void	*strt_rou(void *arg)
 {
 	t_ph_stat	*philo;
 	
@@ -73,6 +73,7 @@ void	strt_rou(void *arg)
 		kun(philo);
 		think(philo);
 	}
+	return (arg);
 }
 
 int	start(t_table *table)
@@ -85,9 +86,9 @@ int	start(t_table *table)
 		printf("Error: pthread_create failed\n");
 		return (-2);
 	}
-	while (i < table->philo_num)
+	while ((unsigned long)i < table->philo_num)
 	{
-		if (pthread_craete(&table->philo[i].t_id), NULL, &strt_rou, &(table->philo[i]) != 0)
+		if (pthread_create(&table->philo[i].t_id, NULL, &strt_rou, &(table->philo[i])) != 0)
 		{
 			printf("Error: pthread_create failed\n");
 			return (i);
