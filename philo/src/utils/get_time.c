@@ -6,14 +6,11 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 19:02:51 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/30 16:23:37 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 14:18:24 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> // printf
-#include <sys/time.h> // time
-#include <stdint.h> // uint64_t
-#include <unistd.h> // usleep
+#include "../../inc/philo.h"
 
 // struct timeval {
 //     time_t      tv_sec;     // seconds

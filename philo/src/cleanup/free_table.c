@@ -6,18 +6,23 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:10:51 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/16 16:51:19 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 16:46:29 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
 
-void	free_forks(t_table *table, int mu_err)
+void	free_forks(t_table *table, int fr_err)
 {
 	unsigned long	i;
 
 	i = 0;
-	while (!mu_err && i < table->philo_num)
+	while (fr_err == -1 && i < table->philo_num)
+	{
+		pthread_mutex_destroy(&(table->forks[i]));
+		i++;
+	}
+	while (fr_err != -1 && i < fr_err)
 	{
 		pthread_mutex_destroy(&(table->forks[i]));
 		i++;
@@ -25,38 +30,27 @@ void	free_forks(t_table *table, int mu_err)
 	free(table->forks);
 }
 
-void	free_philo(t_table *table, int tr_err)
+void	free_mut(t_table *table, int mu_err)
 {
-	unsigned long	i;
-	void	*res;
-	int	s;
-
-	i = 0;
-	res = NULL;
-	s = -1;
-	if (!tr_err)
+	if (mu_err == -1)
 	{
-		if (pthread_join(table->checker, &res) != 0)
-			printf("pthread_join error\m");
-		free(res);
-		res = NULL;
+		pthread_mutex_destroy(&(table->dead_mut));
+		pthread_mutex_destroy(&(table->meal_mut));
+		pthread_mutex_destroy(&(table->prt_mut));
 	}
-	while (!tr_err && i < table->philo_num)
+	if (mu_err == 2)
+		pthread_mutex_destroy(&(table->dead_mut));
+	if (mu_err == 3)
 	{
-		if (pthread_join(table->philo[i].t_id, &res) != 0)
-		{
-			printf("pthread_join error\n");
-			return ;
-		}
-		i++;
-		free(res);
-		res = NULL;
+		pthread_mutex_destroy(&(table->dead_mut));
+		pthread_mutex_destroy(&(table->meal_mut));
 	}
 }
 
-void	free_table(t_table *table, int *mu_err, int *tr_err)
+void	free_table(t_table *table, int mu_err, int tr_err, int fr_err)
 {
-	free_forks(table, *mu_err);
-	free_philo(table, *tr_err);
+	free_forks(table, fr_err);
+	free_mut(table, mu_err);
+	free_philo(table, tr_err);
 	free(table->philo);
 }

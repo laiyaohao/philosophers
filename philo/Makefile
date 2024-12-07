@@ -6,7 +6,7 @@
 #    By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/27 17:31:03 by ylai              #+#    #+#              #
-#    Updated: 2024/11/16 14:57:57 by ylai             ###   ########.fr        #
+#    Updated: 2024/12/07 17:30:34 by ylai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INIT_FILE_NAMES := check_data init_data store_params init_table
 INIT_FILES := ${addprefix ${INIT_FOLDER}, ${addsuffix .c, ${INIT_FILE_NAMES}}}
 
 CLEANUP_FOLDER := cleanup/
-CLEANUP_FILE_NAMES := free_table
+CLEANUP_FILE_NAMES := free_table free_philo
 CLEANUP_FILES := \
 			${addprefix ${CLEANUP_FOLDER}, ${addsuffix .c, ${CLEANUP_FILE_NAMES}}}
 

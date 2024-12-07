@@ -2,11 +2,14 @@
 
 int is_dead(t_table *table, unsigned int i)
 {
+	pthread_mutex_lock(&table->meal_mut);
 	if (get_time() - table->philo[i].meal_time >= table->time_to_die \
 	&& table->philo[i].eating != 0)
 	{
+		pthread_mutex_unlock(&table->meal_mut);
 		return (1);
 	}
+	pthread_mutex_unlock(&table->meal_mut);
 	return (0);
 }
 
@@ -68,8 +71,8 @@ void	*check(void *arg)
 	return (arg);
 }
 
-int	checker_fn(t_table *table)
-{
+// int	checker_fn(t_table *table)
+// {
 	// unsigned int	i;
 	// int	j;
 
@@ -85,5 +88,5 @@ int	checker_fn(t_table *table)
 	// 	i++;
 	// }
 	// return (j);
-	pthread_create(&(table->checker), NULL, &(check), table);
-}
+	// pthread_create(&(table->checker), NULL, &(check), table);
+// }

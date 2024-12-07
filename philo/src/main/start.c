@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:02:43 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/30 19:08:16 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 17:49:44 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,68 @@
 
 
 
-void	start_odd(t_table *table)
-{
-	int	dead;
-	int	i;
+// void	start_odd(t_table *table)
+// {
+// 	int	dead;
+// 	int	i;
 
-	dead = -1;
-	i = 0;
-	while (1)
+// 	dead = -1;
+// 	i = 0;
+// 	while (1)
+// 	{
+// 		dead = check_death(table);
+// 		if (dead != -1)
+// 		{
+// 			printf("Philosopher %d died\n", dead);
+// 			break;
+// 		}
+// 		while (i < table->philo_num)
+// 		{
+// 			if (table->philo[i].number % 2)
+// 			{
+// 				pthread_mutex_lock(&(table->forks[i]));
+// 				pthread_mutex_lock(&(table->forks[(i + 1) % table->philo_num]));
+// 				printf("Philosopher %d is eating\n", table->philo[i].number);
+// 				// table->philo[i].left_to_die -= ph_da->time_to_eat;
+// 				pthread_mutex_unlock(&(table->forks[i]));
+// 				pthread_mutex_unlock(&(table->forks[(i + 1) % table->philo_num]));
+// 				i++;
+// 				break;
+// 			}
+// 		}
+// 	}
+// }
+
+int check_death(t_ph_stat *philo)
+{
+	pthread_mutex_lock(&(philo->dead_mut));
+	if (philo->dead == 1)
 	{
-		dead = check_death(table, ph_da);
-		if (dead != -1)
-		{
-			printf("Philosopher %d died\n", dead);
-			break;
-		}
-		while (i < ph_da->philo_num)
-		{
-			if (table->philo[i].number % 2)
-			{
-				pthread_mutex_lock(&(table->forks[i]));
-				pthread_mutex_lock(&(table->forks[(i + 1) % ph_da->philo_num]));
-				printf("Philosopher %d is eating\n", table->philo[i].number);
-				table->philo[i].left_to_die -= ph_da->time_to_eat;
-				pthread_mutex_unlock(&(table->forks[i]));
-				pthread_mutex_unlock(&(table->forks[(i + 1) % ph_da->philo_num]));
-				i++;
-				break;
-			}
-		}
+		pthread_mutex_unlock(&(philo->dead_mut));
+		return (1);
+	}
+	pthread_mutex_unlock(&(philo->dead_mut));
+	return (0);
+}
+
+void	strt_rou(void *arg)
+{
+	t_ph_stat	*philo;
+	
+	philo = arg;
+	if (philo->number % 2)
+	{
+		usleep(1);
+	}
+	while (!check_death(philo))
+	{
+		eat(philo);
+		kun(philo);
+		think(philo);
 	}
 }
 
-void	strt_rou(t_table *table)
-{
-	
-}
-
-void	start(t_table *table, int *tr_err)
+int	start(t_table *table)
 {
 	int	i;
 
@@ -59,19 +83,18 @@ void	start(t_table *table, int *tr_err)
 	if (pthread_create(&(table->checker), NULL, &(check), table) != 0)
 	{
 		printf("Error: pthread_create failed\n");
-		*tr_err = 1;
-		return ;
+		return (-2);
 	}
 	while (i < table->philo_num)
 	{
-		if (pthread_craete(&table->philo[i].t_id), NULL, &strt_rou, &table != 0)
+		if (pthread_craete(&table->philo[i].t_id), NULL, &strt_rou, &(table->philo[i]) != 0)
 		{
 			printf("Error: pthread_create failed\n");
-			*tr_err = 1;
-			return ;
+			return (i);
 		}
 		i++;
 	}
+	return (-1);
 	// if (table->philo_num % 2)
 	// {
 	// 	// start_odd(table, ph_da);

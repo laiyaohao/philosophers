@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/30 18:02:34 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 16:03:26 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 int	main(int argc, char **argv)
 {
-	int	mu_err;
+	int	fr_err;
 	int	tr_err;
+	int	mu_err;
 	t_table	table;
 	
-	tr_err = 0;
-	mu_err = 0;
+	tr_err = -1;
+	fr_err = -1;
+	mu_err = -1;
 	prt_argc_msg(argc);
 	init_data(&table);
 	store_params(argc, argv, &table);
 	check_data(&table);
-	init_table(&table, &mu_err, &tr_err);
+	fr_err = init_forks(&table);
+	mu_err = init_mut(&table);
+	init_table(&table);
 	// free(ph_stat);
-	start(&table, &tr_err);
-	free_table(&table, &mu_err, &tr_err);
+	tr_err = start(&table);
+	free_table(&table, mu_err, tr_err, fr_err);
 	// free(ph_stat);
 	return (0);
 }

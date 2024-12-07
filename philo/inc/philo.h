@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/16 16:54:30 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/07 17:44:03 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_ph_stat
 	pthread_mutex_t	*right_fork;
 	unsigned long		times_eaten;
 	size_t	meal_time;
-	// pthread_mutex_t	*prt_mut;
+	pthread_mutex_t	*meal_mut;
+	pthread_mutex_t	*dead_mut;
 	int	eating;
 }							t_ph_stat;
 
@@ -46,19 +47,27 @@ typedef struct s_table
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		prt_mut;
 	pthread_mutex_t		dead_mut;
+	pthread_mutex_t		meal_mut;
 }							t_table;
 
-
+// init functions
 void	store_params(int argc, char **argv, t_table *table);
 void	init_data(t_table *table);
 void	check_data(t_table *table);
-void	init_table(t_table *table, int *mu_err, int *tr_err);
-void	free_table(t_table *table, int *mu_err, int *tr_err);
+void	init_table(t_table *table);
+int	init_forks(t_table *table);
+int	init_mut(t_table *table);
 
 // utils functions
 unsigned long	ft_atol(const char *nptr);
 void	prt_argc_msg(int argc);
 size_t	get_time(void);
 void	*check(void *arg);
+void  print(t_table *table, unsigned int num, char *msg);
+
+// cleanup functions
+void	free_philo(t_table *table, int tr_err);
+void	free_table(t_table *table, int mu_err, int tr_err, int fr_err);
+
 
 #endif
