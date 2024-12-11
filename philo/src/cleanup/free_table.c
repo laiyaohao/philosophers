@@ -27,7 +27,7 @@ void	free_forks(t_table *table, int fr_err)
 		pthread_mutex_destroy(&(table->forks[i]));
 		i++;
 	}
-	free(table->forks);
+	// free(table->forks);
 }
 
 void	free_mut(t_table *table, int mu_err)
@@ -51,6 +51,7 @@ void	free_table(t_table *table, int mu_err, int tr_err, int fr_err)
 {
 	free_forks(table, fr_err);
 	free_mut(table, mu_err);
-	free_philo(table, tr_err);
-	free(table->philo);
+	// free_philo(table, tr_err);
+	(void) tr_err;
+	// free(table->philo);
 }

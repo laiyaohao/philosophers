@@ -63,9 +63,9 @@ void	*strt_rou(void *arg)
 	t_ph_stat	*philo;
 	
 	philo = arg;
-	if (philo->number % 2)
+	if (philo->number % 2 == 0)
 	{
-		usleep(1);
+		ft_usleep(1);
 	}
 	while (!check_death(philo))
 	{
@@ -92,6 +92,17 @@ int	start(t_table *table)
 		{
 			printf("Error: pthread_create failed\n");
 			return (i);
+		}
+		i++;
+	}
+	i = 0;
+	if (pthread_join(table->checker, NULL) != 0)
+		free_table(table, -1, 0, -1);
+	while ((unsigned long)i < table->philo_num)
+	{
+		if (pthread_join(table->philo[i].t_id, NULL) != 0)
+		{
+			free_table(table, -1, 0, -1);
 		}
 		i++;
 	}

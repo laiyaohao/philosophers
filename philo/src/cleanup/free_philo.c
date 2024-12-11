@@ -15,54 +15,54 @@
 void	philo_no_err(t_table *table)
 {
 	int	i;
-	void	*res;
+	// void	*res;
 
 	i = 0;
-	res = NULL;
+	// res = NULL;
 	while ((unsigned long)i < table->philo_num)
 	{
-		if (pthread_join(table->philo[i].t_id, &res) != 0)
+		if (pthread_join(table->philo[i].t_id, NULL) != 0)
 		{
-			printf("pthread_join error\n");
+			printf("pthread_join errorc\n");
 			return ;
 		}
 		i++;
-		free(res);
-		res = NULL;
+		// free(res);
+		// res = NULL;
 	}
 }
 
 void	philo_have_err(t_table *table, int tr_err)
 {
 	int	i;
-	void	*res;
+	// void	*res;
 
 	i = 0;
-	res = NULL;
+	// res = NULL;
 	while (i < tr_err)
 	{
-		if (pthread_join(table->philo[i].t_id, &res) != 0)
+		if (pthread_join(table->philo[i].t_id, NULL) != 0)
 		{
-			printf("pthread_join error\n");
+			printf("pthread_join errorb\n");
 			return ;
 		}
 		i++;
-		free(res);
-		res = NULL;
+		// free(res);
+		// res = NULL;
 	}
 }
 
 void	free_philo(t_table *table, int tr_err)
 {
-	void	*res;
+	// void	*res;
 
-	res = NULL;
+	// res = NULL;
 	if (tr_err != -2)
 	{
-		if (pthread_join(table->checker, &res) != 0)
-			printf("pthread_join error\n");
-		free(res);
-		res = NULL;
+		if (pthread_join(table->checker, NULL) != 0)
+			printf("pthread_join errora\n");
+		// free(res);
+		// res = NULL;
 	}
 	else if (tr_err == -1)
 	{

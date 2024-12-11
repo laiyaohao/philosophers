@@ -28,7 +28,7 @@ typedef struct s_ph_stat
 	int		dead;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	unsigned long		times_eaten;
+	int		times_eaten;
 	size_t	meal_time;
 	pthread_mutex_t	*meal_mut;
 	pthread_mutex_t	*dead_mut;
@@ -44,10 +44,10 @@ typedef struct s_table
 	unsigned long				time_to_die;
 	unsigned long				time_to_eat;
 	unsigned long				time_to_sleep;
-	unsigned long				must_eat_num;
-	t_ph_stat					*philo;
+	int				must_eat_num;
+	t_ph_stat					philo[300];
 	pthread_t					checker;
-	pthread_mutex_t		*forks;
+	pthread_mutex_t		forks[300];
 	pthread_mutex_t		prt_mut;
 	pthread_mutex_t		dead_mut;
 	pthread_mutex_t		meal_mut;
@@ -56,7 +56,7 @@ typedef struct s_table
 // init functions
 void	store_params(int argc, char **argv, t_table *table);
 void	init_data(t_table *table);
-void	check_data(t_table *table);
+void	check_data(t_table *table, int argc);
 void	init_table(t_table *table);
 int	init_forks(t_table *table);
 int	init_mut(t_table *table);
@@ -67,6 +67,7 @@ void	prt_argc_msg(int argc);
 size_t	get_time(void);
 void	*check(void *arg);
 void  print(t_ph_stat *philo, char *msg);
+int	ft_usleep(size_t milliseconds);
 
 // cleanup functions
 void	free_philo(t_table *table, int tr_err);
