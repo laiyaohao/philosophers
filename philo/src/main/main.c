@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	prt_argc_msg(argc);
 	init_data(&table);
 	store_params(argc, argv, &table);
+	printf("must eat num: %d\n", table.must_eat_num);
 	check_data(&table, argc);
 	fr_err = init_forks(&table);
 	mu_err = init_mut(&table);

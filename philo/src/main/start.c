@@ -79,19 +79,20 @@ void	*strt_rou(void *arg)
 int	start(t_table *table)
 {
 	int	i;
+	pthread_t checker;
 
-	i = 0;
-	if (pthread_create(&(table->checker), NULL, &(check), table) != 0)
+	if (pthread_create(&checker, NULL, &(check), table) != 0)
 	{
 		printf("Error: pthread_create failed\n");
-		return (-2);
+		free_table(table, -1, 0, -1);
 	}
+	i = 0;
 	while ((unsigned long)i < table->philo_num)
 	{
 		if (pthread_create(&table->philo[i].t_id, NULL, &strt_rou, &(table->philo[i])) != 0)
 		{
 			printf("Error: pthread_create failed\n");
-			return (i);
+			free_table(table, -1, 0, -1);
 		}
 		i++;
 	}

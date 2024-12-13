@@ -50,6 +50,7 @@ int ful_meal_req(t_table *table)
 		pthread_mutex_unlock(&(table->meal_mut));
 		i++;
 	}
+	i = 0;
 	if ((unsigned long)ful == table->philo_num)
 	{
 		pthread_mutex_lock(&(table->dead_mut));
@@ -67,7 +68,7 @@ void	*check(void *arg)
 	table = (t_table *)arg;
 	while (1)
 	{
-		if (find_death(table) || ful_meal_req(table))
+		if (find_death(table) == 1 || ful_meal_req(table) == 1)
 			break;
 	}
 	return (arg);
