@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 16:34:08 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 18:20:49 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/14 17:49:52 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	philo_no_err(t_table *table)
 
 	i = 0;
 	// res = NULL;
-	while ((unsigned long)i < table->philo_num)
+	while (i < table->philo_num)
 	{
 		if (pthread_join(table->philo[i].t_id, NULL) != 0)
 		{
@@ -64,7 +64,7 @@ void	free_philo(t_table *table, int tr_err)
 		// free(res);
 		// res = NULL;
 	}
-	else if (tr_err == -1)
+	if (tr_err == -1)
 	{
 		philo_no_err(table);
 	}

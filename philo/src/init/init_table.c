@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:46:13 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 19:09:21 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/14 17:49:25 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_forks(t_table *table)
 	// 	printf("Error: malloc failed for number of forks\n");
 	// 	return (-2);
 	// }
-	while ((unsigned long)i < table->philo_num)
+	while (i < table->philo_num)
 	{
 		if (pthread_mutex_init(&(table->forks[i]), NULL) != 0)
 		{
@@ -53,13 +53,13 @@ int	init_forks(t_table *table)
 
 void	init_philo(t_table *table)
 {
-	unsigned long	i;
+	int	i;
 
 	i = 0;
 	while (i < table->philo_num)
 	{
 		table->philo[i].number = i + 1;
-		table->philo[i].dead = 0;
+		table->philo[i].dead = &(table->dead);
 		table->philo[i].eating = 0;
 		table->philo[i].start_time = get_time();
 		table->philo[i].dead_mut = &(table->dead_mut);
@@ -70,6 +70,8 @@ void	init_philo(t_table *table)
 		table->philo[i].time_to_eat = table->time_to_eat;
 		table->philo[i].time_to_sleep = table->time_to_sleep;
 		table->philo[i].left_fork = &(table->forks[i]);
+		table->philo[i].time_to_die = table->time_to_die;
+		table->philo[i].philo_num = table->philo_num;
 		if (i == 0)
 			table->philo[i].right_fork = &(table->forks[table->philo_num - 1]);
 		else
@@ -106,6 +108,7 @@ void	init_table(t_table *table)
 	// 	printf("Error: malloc failed for the status of each philosopher\n");
 	// 	exit(1);
 	// }
+	table->dead = 0;
 	init_philo(table);
 	// }
 }

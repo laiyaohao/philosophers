@@ -6,6 +6,7 @@ int is_dead(t_table *table, unsigned int i)
 	if (get_time() - table->philo[i].meal_time >= table->time_to_die \
 	&& table->philo[i].eating == 0)
 	{
+		printf("philo %d should have been dead\n\n\n\n", table->philo[i].number);
 		pthread_mutex_unlock(&table->meal_mut);
 		return (1);
 	}
@@ -15,16 +16,16 @@ int is_dead(t_table *table, unsigned int i)
 
 int find_death(t_table *table)
 {
-	unsigned int i;
+	int i;
 	
 	i = 0;
 	while (i < table->philo_num)
 	{
 		if (is_dead(table, i))
 		{
-			print(&(table->philo[i]), "is dead");
+			print(&(table->philo[i]), "died");
 			pthread_mutex_lock(&(table->dead_mut));
-			table->philo[i].dead = 1;
+			table->dead = 1;
 			pthread_mutex_unlock(&(table->dead_mut));
 			return (1);
 		}
@@ -42,7 +43,7 @@ int ful_meal_req(t_table *table)
 	ful = 0;
 	if (table->must_eat_num == -1)
 		return (0);
-	while ((unsigned long)i < table->philo_num)
+	while (i < table->philo_num)
 	{
 		pthread_mutex_lock(&(table->meal_mut));
 		if (table->philo[i].times_eaten >= table->must_eat_num)
@@ -51,10 +52,10 @@ int ful_meal_req(t_table *table)
 		i++;
 	}
 	i = 0;
-	if ((unsigned long)ful == table->philo_num)
+	if (ful == table->philo_num)
 	{
 		pthread_mutex_lock(&(table->dead_mut));
-		table->philo[i].dead = 1;
+		table->dead = 1;
 		pthread_mutex_unlock(&(table->dead_mut));
 		return (1);
 	}

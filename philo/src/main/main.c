@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 18:39:23 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/14 15:11:05 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv)
 	prt_argc_msg(argc);
 	init_data(&table);
 	store_params(argc, argv, &table);
-	printf("must eat num: %d\n", table.must_eat_num);
 	check_data(&table, argc);
 	fr_err = init_forks(&table);
 	mu_err = init_mut(&table);

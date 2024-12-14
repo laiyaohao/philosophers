@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:02:43 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 19:14:11 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/14 17:59:59 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 int check_death(t_ph_stat *philo)
 {
 	pthread_mutex_lock(philo->dead_mut);
-	if (philo->dead == 1)
+	if (*(philo->dead) == 1)
 	{
 		pthread_mutex_unlock(philo->dead_mut);
 		return (1);
@@ -67,7 +67,7 @@ void	*strt_rou(void *arg)
 	{
 		ft_usleep(1);
 	}
-	while (!check_death(philo))
+	while (check_death(philo) != 1)
 	{
 		eat(philo);
 		kun(philo);
@@ -79,27 +79,29 @@ void	*strt_rou(void *arg)
 int	start(t_table *table)
 {
 	int	i;
-	pthread_t checker;
+	// pthread_t checker;
 
-	if (pthread_create(&checker, NULL, &(check), table) != 0)
+	if (pthread_create(&table->checker, NULL, &(check), table) != 0)
 	{
 		printf("Error: pthread_create failed\n");
-		free_table(table, -1, 0, -1);
+		// free_table(table, -1, 0, -1);
+		return (-2);
 	}
 	i = 0;
-	while ((unsigned long)i < table->philo_num)
+	while (i < table->philo_num)
 	{
 		if (pthread_create(&table->philo[i].t_id, NULL, &strt_rou, &(table->philo[i])) != 0)
 		{
 			printf("Error: pthread_create failed\n");
-			free_table(table, -1, 0, -1);
+			// free_table(table, -1, 0, -1);
+			return (i);
 		}
 		i++;
 	}
 	i = 0;
 	if (pthread_join(table->checker, NULL) != 0)
 		free_table(table, -1, 0, -1);
-	while ((unsigned long)i < table->philo_num)
+	while (i < table->philo_num)
 	{
 		if (pthread_join(table->philo[i].t_id, NULL) != 0)
 		{

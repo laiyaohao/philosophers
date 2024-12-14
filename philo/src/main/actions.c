@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 19:10:12 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 19:15:14 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/14 18:01:37 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	eat(t_ph_stat *philo)
 {
 	pthread_mutex_lock(philo->right_fork);
 	print(philo, "has taken a fork");
+	if (philo->philo_num == 1)
+	{
+		ft_usleep(philo->time_to_die);
+		pthread_mutex_unlock(philo->right_fork);
+		return ;
+	}
 	pthread_mutex_lock(philo->left_fork);
 	print(philo, "has taken a fork");
 	philo->eating = 1;

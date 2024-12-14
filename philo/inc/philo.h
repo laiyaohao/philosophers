@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 19:11:11 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/14 17:57:42 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_ph_stat
 	size_t		start_time;
 	unsigned int	number;
 	pthread_t			t_id;
-	int		dead;
+	int		*dead;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	int		times_eaten;
@@ -34,16 +34,18 @@ typedef struct s_ph_stat
 	pthread_mutex_t	*dead_mut;
 	pthread_mutex_t	*prt_mut;
 	int	eating;
-	unsigned long	time_to_eat;
-	unsigned long	time_to_sleep;
+	size_t	time_to_eat;
+	size_t	time_to_sleep;
+	size_t	time_to_die;
+	int	philo_num;
 }							t_ph_stat;
 
 typedef struct s_table
 {
-	unsigned long				philo_num;
-	unsigned long				time_to_die;
-	unsigned long				time_to_eat;
-	unsigned long				time_to_sleep;
+	int				philo_num;
+	size_t				time_to_die;
+	size_t				time_to_eat;
+	size_t				time_to_sleep;
 	int				must_eat_num;
 	t_ph_stat					philo[300];
 	pthread_t					checker;
@@ -51,6 +53,7 @@ typedef struct s_table
 	pthread_mutex_t		prt_mut;
 	pthread_mutex_t		dead_mut;
 	pthread_mutex_t		meal_mut;
+	int				dead;
 }							t_table;
 
 // init functions

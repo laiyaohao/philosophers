@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 19:02:51 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/07 14:18:24 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/14 17:35:10 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ size_t	get_time(void) // returns time in milliseconds
 {
 	struct timeval	tv;
 
-	if (gettimeofday(&tv, NULL))
-		return (0);
+	if (gettimeofday(&tv, NULL) == -1)
+		printf("Error: gettimeofday failed\n");
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-int	ft_usleep(size_t milliseconds)
+int	ft_usleep(size_t ms)
 {
 	size_t	start;
 
 	start = get_time();
-	while ((get_time() - start) < milliseconds)
+	while ((get_time() - start) < ms)
 		usleep(500);
 	return (0);
 }
