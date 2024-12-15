@@ -37,6 +37,7 @@ typedef struct s_ph_stat
 	size_t	time_to_eat;
 	size_t	time_to_sleep;
 	size_t	time_to_die;
+	int	must_eat_num;
 	int	philo_num;
 }							t_ph_stat;
 
@@ -73,13 +74,13 @@ void  print(t_ph_stat *philo, char *msg);
 int	ft_usleep(size_t milliseconds);
 
 // cleanup functions
-void	free_philo(t_table *table, int tr_err);
-void	free_table(t_table *table, int mu_err, int tr_err, int fr_err);
+void	free_table(t_table *table, int mu_err, int fr_err);
 
 // main functions
-int	start(t_table *table);
+void	start(t_table *table);
 void	eat(t_ph_stat *philo);
 void	kun(t_ph_stat *philo);
 void	think(t_ph_stat *philo);
+int check_death(t_ph_stat *philo);
 
 #endif

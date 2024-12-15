@@ -12,14 +12,7 @@
 
 #include "../../inc/philo.h"
 
-// struct timeval {
-//     time_t      tv_sec;     // seconds
-//     suseconds_t tv_usec;    // microseconds
-// };
-
-// int gettimeofday(struct timeval *tv, struct timezone *tz);
-
-size_t	get_time(void) // returns time in milliseconds
+size_t	get_time(void)
 {
 	struct timeval	tv;
 

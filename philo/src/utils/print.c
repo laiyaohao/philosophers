@@ -18,6 +18,7 @@ void  print(t_ph_stat *philo, char *msg)
 
   pthread_mutex_lock(philo->prt_mut);
   time = get_time() - philo->start_time;
-  printf("%zu %d %s\n", time, philo->number, msg);
+  if (check_death(philo) != 1)
+    printf("%zu %d %s\n", time, philo->number, msg);
   pthread_mutex_unlock(philo->prt_mut);
 }

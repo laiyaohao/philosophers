@@ -46,10 +46,8 @@ void	free_mut(t_table *table, int mu_err)
 	}
 }
 
-void	free_table(t_table *table, int mu_err, int tr_err, int fr_err)
+void	free_table(t_table *table, int mu_err, int fr_err)
 {
 	free_forks(table, fr_err);
 	free_mut(table, mu_err);
-	// free_philo(table, tr_err);
-	(void) tr_err;
 }

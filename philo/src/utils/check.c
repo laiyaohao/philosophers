@@ -1,32 +1,31 @@
 #include "../../inc/philo.h"
 
-int is_dead(t_table *table, unsigned int i)
+int is_dead(t_ph_stat *philo, unsigned int i)
 {
-	pthread_mutex_lock(&(table->meal_mut));
-	if (get_time() - table->philo[i].meal_time >= table->time_to_die \
-	&& table->philo[i].eating == 0)
+	pthread_mutex_lock(philo->meal_mut);
+	if (get_time() - philo[i].meal_time >= philo->time_to_die \
+	&& philo[i].eating == 0)
 	{
-		printf("philo %d should have been dead\n\n\n\n", table->philo[i].number);
-		pthread_mutex_unlock(&table->meal_mut);
+		pthread_mutex_unlock(philo->meal_mut);
 		return (1);
 	}
-	pthread_mutex_unlock(&table->meal_mut);
+	pthread_mutex_unlock(philo->meal_mut);
 	return (0);
 }
 
-int find_death(t_table *table)
+int find_death(t_ph_stat *philo)
 {
 	int i;
 	
 	i = 0;
-	while (i < table->philo_num)
+	while (i < philo->philo_num)
 	{
-		if (is_dead(table, i))
+		if (is_dead(philo, i))
 		{
-			print(&(table->philo[i]), "died");
-			pthread_mutex_lock(&(table->dead_mut));
-			table->dead = 1;
-			pthread_mutex_unlock(&(table->dead_mut));
+			print(&(philo[i]), "died");
+			pthread_mutex_lock(philo->dead_mut);
+			*philo->dead = 1;
+			pthread_mutex_unlock(philo->dead_mut);
 			return (1);
 		}
 		i++;
@@ -34,29 +33,29 @@ int find_death(t_table *table)
 	return (0);
 }
 
-int ful_meal_req(t_table *table)
+int ful_meal_req(t_ph_stat *philo)
 {
 	int i;
 	int ful;
 
 	i = 0;
 	ful = 0;
-	if (table->must_eat_num == -1)
+	if (philo->must_eat_num == -1)
 		return (0);
-	while (i < table->philo_num)
+	while (i < philo->philo_num)
 	{
-		pthread_mutex_lock(&(table->meal_mut));
-		if (table->philo[i].times_eaten >= table->must_eat_num)
+		pthread_mutex_lock(philo->meal_mut);
+		if (philo[i].times_eaten >= philo->must_eat_num)
 			ful++;
-		pthread_mutex_unlock(&(table->meal_mut));
+		pthread_mutex_unlock(philo->meal_mut);
 		i++;
 	}
 	i = 0;
-	if (ful == table->philo_num)
+	if (ful == philo->philo_num)
 	{
-		pthread_mutex_lock(&(table->dead_mut));
-		table->dead = 1;
-		pthread_mutex_unlock(&(table->dead_mut));
+		pthread_mutex_lock(philo->dead_mut);
+		*philo->dead = 1;
+		pthread_mutex_unlock(philo->dead_mut);
 		return (1);
 	}
 	return (0);
@@ -64,33 +63,13 @@ int ful_meal_req(t_table *table)
 
 void	*check(void *arg)
 {
-	t_table *table;
+	t_ph_stat *philo;
 
-	table = (t_table *)arg;
+	philo = (t_ph_stat *)arg;
 	while (1)
-	{
-		if (find_death(table) == 1 || ful_meal_req(table) == 1)
+	
+		if (find_death(philo) == 1 || ful_meal_req(philo) == 1)
 			break;
-	}
+	
 	return (arg);
 }
-
-// int	checker_fn(t_table *table)
-// {
-	// unsigned int	i;
-	// int	j;
-
-	// i = 0;
-	// j = -1;
-	// while (i < ph_da->philo_num)
-	// {
-	// 	if (table->philo[i].left_to_die <= 0)
-	// 	{
-	// 		j = table->philo[i].number;
-	// 		break;
-	// 	}
-	// 	i++;
-	// }
-	// return (j);
-	// pthread_create(&(table->checker), NULL, &(check), table);
-// }

@@ -19,7 +19,6 @@ void	think(t_ph_stat *philo)
 
 void	kun(t_ph_stat *philo)
 {
-	// delay
 	print(philo, "is sleeping");
 	ft_usleep(philo->time_to_sleep);
 }
@@ -44,8 +43,6 @@ void	eat(t_ph_stat *philo)
 	pthread_mutex_unlock(philo->meal_mut);
 	ft_usleep(philo->time_to_eat);
 	philo->eating = 0;
-	// printf("Philosopher %d is eating\n", table->philo[i].number);
-	// table->philo[i].left_to_die -= ph_da->time_to_eat;
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }

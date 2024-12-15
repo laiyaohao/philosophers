@@ -20,7 +20,7 @@ INIT_FILE_NAMES := check_data init_data store_params init_table
 INIT_FILES := ${addprefix ${INIT_FOLDER}, ${addsuffix .c, ${INIT_FILE_NAMES}}}
 
 CLEANUP_FOLDER := cleanup/
-CLEANUP_FILE_NAMES := free_table free_philo
+CLEANUP_FILE_NAMES := free_table
 CLEANUP_FILES := \
 			${addprefix ${CLEANUP_FOLDER}, ${addsuffix .c, ${CLEANUP_FILE_NAMES}}}
 
