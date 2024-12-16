@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:30:49 by ylai              #+#    #+#             */
-/*   Updated: 2024/11/16 14:21:23 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/16 14:37:40 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ void	store_params_helper(unsigned long num, int i, t_table *table)
 
 void	store_params(int argc, char **argv, t_table *table)
 {
-	int	i;
-	char	*param;
+	int				i;
+	char			*param;
 	unsigned long	num;
 
 	i = 1;
-
 	while (i < argc)
 	{
 		param = argv[i];

@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/14 15:11:05 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/16 17:38:35 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	main(int argc, char **argv)
 {
-	int	fr_err;
-	int	mu_err;
-	t_table	table;
+	long long		fr_err;
+	long long		mu_err;
+	t_table			table;
 
 	fr_err = -1;
 	mu_err = -1;

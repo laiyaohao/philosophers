@@ -6,47 +6,47 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:10:51 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/14 17:59:44 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/16 17:32:35 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
 
-void	free_forks(t_table *table, int fr_err)
+void	free_forks(t_table *table, long long fr_err)
 {
-	int	i;
+	long long	i;
 
 	i = 0;
-	while (fr_err == -1 && i < table->philo_num)
+	while (fr_err == -1LL && i < table->philo_num)
 	{
 		pthread_mutex_destroy(&(table->forks[i]));
 		i++;
 	}
-	while (fr_err != -1 && i < fr_err)
+	while (fr_err != -1LL && i < fr_err)
 	{
 		pthread_mutex_destroy(&(table->forks[i]));
 		i++;
 	}
 }
 
-void	free_mut(t_table *table, int mu_err)
+void	free_mut(t_table *table, long long mu_err)
 {
-	if (mu_err == -1)
+	if (mu_err == -1LL)
 	{
 		pthread_mutex_destroy(&(table->dead_mut));
 		pthread_mutex_destroy(&(table->meal_mut));
 		pthread_mutex_destroy(&(table->prt_mut));
 	}
-	if (mu_err == 2)
+	if (mu_err == 2LL)
 		pthread_mutex_destroy(&(table->dead_mut));
-	if (mu_err == 3)
+	if (mu_err == 3LL)
 	{
 		pthread_mutex_destroy(&(table->dead_mut));
 		pthread_mutex_destroy(&(table->meal_mut));
 	}
 }
 
-void	free_table(t_table *table, int mu_err, int fr_err)
+void	free_table(t_table *table, long long mu_err, long long fr_err)
 {
 	free_forks(table, fr_err);
 	free_mut(table, mu_err);

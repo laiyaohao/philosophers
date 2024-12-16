@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 14:24:56 by ylai              #+#    #+#             */
+/*   Updated: 2024/12/16 17:38:45 by ylai             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/philo.h"
 
-unsigned long	ft_atol(const char *nptr)
+long	ft_atol(const char *nptr)
 {
 	long	i;
-	unsigned long	ans;
+	long	ans;
 
 	i = 0;
 	ans = 0;

@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:46:13 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/14 17:49:25 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/16 17:52:09 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	init_forks(t_table *table)
 {
-	int	i;
+	long long	i;
 
 	i = 0;
 	while (i < table->philo_num)
@@ -29,28 +29,33 @@ int	init_forks(t_table *table)
 	return (-1);
 }
 
+void	init_frm_table(t_table *table, long long i)
+{
+	table->philo[i].dead = &(table->dead);
+	table->philo[i].dead_mut = &(table->dead_mut);
+	table->philo[i].meal_mut = &(table->meal_mut);
+	table->philo[i].prt_mut = &(table->prt_mut);
+	table->philo[i].time_to_eat = table->time_to_eat;
+	table->philo[i].time_to_sleep = table->time_to_sleep;
+	table->philo[i].left_fork = &(table->forks[i]);
+	table->philo[i].time_to_die = table->time_to_die;
+	table->philo[i].philo_num = table->philo_num;
+	table->philo[i].must_eat_num = table->must_eat_num;
+}
+
 void	init_philo(t_table *table)
 {
-	int	i;
+	long long	i;
 
 	i = 0;
 	while (i < table->philo_num)
 	{
+		init_frm_table(table, i);
 		table->philo[i].number = i + 1;
-		table->philo[i].dead = &(table->dead);
 		table->philo[i].eating = 0;
 		table->philo[i].start_time = get_time();
-		table->philo[i].dead_mut = &(table->dead_mut);
-		table->philo[i].meal_mut = &(table->meal_mut);
-		table->philo[i].prt_mut = &(table->prt_mut);
 		table->philo[i].times_eaten = 0;
 		table->philo[i].meal_time = get_time();
-		table->philo[i].time_to_eat = table->time_to_eat;
-		table->philo[i].time_to_sleep = table->time_to_sleep;
-		table->philo[i].left_fork = &(table->forks[i]);
-		table->philo[i].time_to_die = table->time_to_die;
-		table->philo[i].philo_num = table->philo_num;
-		table->philo[i].must_eat_num = table->must_eat_num;
 		if (i == 0)
 			table->philo[i].right_fork = &(table->forks[table->philo_num - 1]);
 		else

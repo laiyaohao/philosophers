@@ -6,13 +6,13 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 19:02:51 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/14 17:35:10 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/16 17:34:05 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
 
-size_t	get_time(void)
+long long	get_time(void)
 {
 	struct timeval	tv;
 
@@ -21,12 +21,11 @@ size_t	get_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-int	ft_usleep(size_t ms)
+void	sleeep(long long ms)
 {
-	size_t	start;
+	long long	start;
 
 	start = get_time();
 	while ((get_time() - start) < ms)
 		usleep(500);
-	return (0);
 }

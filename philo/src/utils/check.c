@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 14:24:50 by ylai              #+#    #+#             */
+/*   Updated: 2024/12/16 17:35:20 by ylai             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/philo.h"
 
-int is_dead(t_ph_stat *philo, unsigned int i)
+int	is_dead(t_ph_stat *philo, unsigned int i)
 {
 	pthread_mutex_lock(philo->meal_mut);
 	if (get_time() - philo[i].meal_time >= philo->time_to_die \
@@ -13,10 +25,10 @@ int is_dead(t_ph_stat *philo, unsigned int i)
 	return (0);
 }
 
-int find_death(t_ph_stat *philo)
+int	find_death(t_ph_stat *philo)
 {
-	int i;
-	
+	long long	i;
+
 	i = 0;
 	while (i < philo->philo_num)
 	{
@@ -33,10 +45,10 @@ int find_death(t_ph_stat *philo)
 	return (0);
 }
 
-int ful_meal_req(t_ph_stat *philo)
+int	ful_meal_req(t_ph_stat *philo)
 {
-	int i;
-	int ful;
+	long long	i;
+	long long	ful;
 
 	i = 0;
 	ful = 0;
@@ -63,13 +75,13 @@ int ful_meal_req(t_ph_stat *philo)
 
 void	*check(void *arg)
 {
-	t_ph_stat *philo;
+	t_ph_stat	*philo;
 
 	philo = (t_ph_stat *)arg;
 	while (1)
-	
+	{
 		if (find_death(philo) == 1 || ful_meal_req(philo) == 1)
-			break;
-	
+			break ;
+	}
 	return (arg);
 }
