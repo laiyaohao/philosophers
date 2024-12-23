@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:24:50 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/16 17:35:20 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/23 17:45:51 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_dead(t_ph_stat *philo, unsigned int i)
 {
 	pthread_mutex_lock(philo->meal_mut);
-	if (get_time() - philo[i].meal_time >= philo->time_to_die \
+	if (get_time() - philo[i].meal_time > philo->time_to_die \
 	&& philo[i].eating == 0)
 	{
 		pthread_mutex_unlock(philo->meal_mut);
@@ -28,13 +28,18 @@ int	is_dead(t_ph_stat *philo, unsigned int i)
 int	find_death(t_ph_stat *philo)
 {
 	long long	i;
+	size_t	time;
 
 	i = 0;
+	time = 0;
 	while (i < philo->philo_num)
 	{
 		if (is_dead(philo, i))
 		{
-			print(&(philo[i]), "died");
+			time = get_time() - philo[i].start_time;
+			// pthread_mutex_lock(philo->prt_mut);
+			print(&(philo[i]), "died", time);
+			// pthread_mutex_unlock(philo->prt_mut);
 			pthread_mutex_lock(philo->dead_mut);
 			*philo->dead = 1;
 			pthread_mutex_unlock(philo->dead_mut);

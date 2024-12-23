@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:02:43 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/16 15:56:23 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/23 18:14:57 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	start(t_table *table)
 {
 	int	i;
 
-	if (pthread_create(&table->checker, NULL, &(check), table->philo) != 0)
-		free_table(table, -1, -1);
 	i = 0;
 	while (i < table->philo_num)
 	{
@@ -56,6 +54,8 @@ void	start(t_table *table)
 			free_table(table, -1, -1);
 		i++;
 	}
+	if (pthread_create(&table->checker, NULL, &(check), table->philo) != 0)
+		free_table(table, -1, -1);
 	i = 0;
 	if (pthread_join(table->checker, NULL) != 0)
 		free_table(table, -1, -1);

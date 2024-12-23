@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:50:34 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/16 17:38:35 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/23 18:11:22 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int	main(int argc, char **argv)
 	mu_err = init_mut(&table);
 	init_table(&table);
 	start(&table);
-	free_table(&table, mu_err, fr_err);
+	// free_table(&table, mu_err, fr_err);	
 	return (0);
 }

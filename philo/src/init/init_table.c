@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:46:13 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/16 17:52:09 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/23 16:19:16 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	init_philo(t_table *table)
 		init_frm_table(table, i);
 		table->philo[i].number = i + 1;
 		table->philo[i].eating = 0;
-		table->philo[i].start_time = get_time();
+		table->philo[i].start_time = table->start_time;
 		table->philo[i].times_eaten = 0;
-		table->philo[i].meal_time = get_time();
+		table->philo[i].meal_time = table->philo[i].start_time;
 		if (i == 0)
 			table->philo[i].right_fork = &(table->forks[table->philo_num - 1]);
 		else
@@ -87,5 +87,6 @@ int	init_mut(t_table *table)
 void	init_table(t_table *table)
 {
 	table->dead = 0;
+	table->start_time = get_time();
 	init_philo(table);
 }

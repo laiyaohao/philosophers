@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/16 18:43:10 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/23 16:19:03 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_table
 	long long			time_to_sleep;
 	long long			must_eat_num;
 	long long			philo_num;
+	long long			start_time;
 	int					dead;
 }							t_table;
 
@@ -69,7 +70,7 @@ int					init_mut(t_table *table);
 long				ft_atol(const char *nptr);
 void				prt_argc_msg(int argc);
 void				*check(void *arg);
-void				print(t_ph_stat *philo, char *msg);
+void				print(t_ph_stat *philo, char *msg, size_t time);
 void				sleeep(long long ms);
 long long			get_time(void);
 
