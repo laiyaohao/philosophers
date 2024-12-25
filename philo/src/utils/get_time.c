@@ -12,6 +12,16 @@
 
 #include "../../inc/philo.h"
 
+// long long	get_start_time(t_ph_stat *philo)
+// {
+// 	long long	start_time;
+
+// 	pthread_mutex_lock(philo->time_mut);
+// 	start_time = philo->start_time;
+// 	pthread_mutex_unlock(philo->time_mut);
+// 	return (start_time);
+// }
+
 long long	get_time(void)
 {
 	struct timeval	tv;

@@ -27,6 +27,7 @@ typedef struct s_ph_stat
 	pthread_mutex_t		*meal_mut;
 	pthread_mutex_t		*dead_mut;
 	pthread_mutex_t		*prt_mut;
+	pthread_mutex_t		*time_mut;
 	pthread_t			t_id;
 	long long			meal_time;
 	long long			start_time;
@@ -43,12 +44,14 @@ typedef struct s_ph_stat
 
 typedef struct s_table
 {
-	pthread_mutex_t		forks[45000];
+	pthread_mutex_t		*forks;
 	pthread_mutex_t		prt_mut;
 	pthread_mutex_t		dead_mut;
 	pthread_mutex_t		meal_mut;
+	pthread_mutex_t		time_mut;
 	pthread_t			checker;
-	t_ph_stat			philo[45000];
+	// pthread_t			checker_m;
+	t_ph_stat			*philo;
 	long long			time_to_die;
 	long long			time_to_eat;
 	long long			time_to_sleep;
@@ -70,9 +73,10 @@ int					init_mut(t_table *table);
 long				ft_atol(const char *nptr);
 void				prt_argc_msg(int argc);
 void				*check(void *arg);
-void				print(t_ph_stat *philo, char *msg, size_t time);
+void				print(t_ph_stat *philo, char *msg);
 void				sleeep(long long ms);
 long long			get_time(void);
+long long			get_start_time(t_ph_stat *philo);
 
 // cleanup functions
 void				free_table(t_table *table, long long mu_err, \

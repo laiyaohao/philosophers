@@ -28,17 +28,16 @@ int	is_dead(t_ph_stat *philo, unsigned int i)
 int	find_death(t_ph_stat *philo)
 {
 	long long	i;
-	size_t	time;
 
 	i = 0;
-	time = 0;
+	// time = 0;
 	while (i < philo->philo_num)
 	{
 		if (is_dead(philo, i))
 		{
-			time = get_time() - philo[i].start_time;
+			// time = time - philo[i].start_time;
 			// pthread_mutex_lock(philo->prt_mut);
-			print(&(philo[i]), "died", time);
+			print(&(philo[i]), "died");
 			// pthread_mutex_unlock(philo->prt_mut);
 			pthread_mutex_lock(philo->dead_mut);
 			*philo->dead = 1;
@@ -81,10 +80,13 @@ int	ful_meal_req(t_ph_stat *philo)
 void	*check(void *arg)
 {
 	t_ph_stat	*philo;
+	// long long	time;
 
 	philo = (t_ph_stat *)arg;
 	while (1)
 	{
+		// time = get_time();
+		usleep(1000);
 		if (find_death(philo) == 1 || ful_meal_req(philo) == 1)
 			break ;
 	}

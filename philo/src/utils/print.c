@@ -12,10 +12,13 @@
 
 #include "../../inc/philo.h"
 
-void	print(t_ph_stat *philo, char *msg, size_t time)
+void	print(t_ph_stat *philo, char *msg)
 {
+	long long	time;
+
+	time = get_time() - philo->start_time;
 	pthread_mutex_lock(philo->prt_mut);
 	if (check_death(philo) != 1)
-		printf("%zu %lld %s\n", time, philo->number, msg);
+		printf("%llu %lld %s\n", time, philo->number, msg);
 	pthread_mutex_unlock(philo->prt_mut);
 }

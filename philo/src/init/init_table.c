@@ -17,6 +17,13 @@ int	init_forks(t_table *table)
 	long long	i;
 
 	i = 0;
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_num);
+	if (table->forks == NULL)
+	{
+		printf("Error: malloc failed for number of forks\n");
+		return (-2);
+	}
+	i = 0;
 	while (i < table->philo_num)
 	{
 		if (pthread_mutex_init(&(table->forks[i]), NULL) != 0)
@@ -88,5 +95,11 @@ void	init_table(t_table *table)
 {
 	table->dead = 0;
 	table->start_time = get_time();
+	table->philo = malloc(sizeof(t_ph_stat) * table->philo_num);
+	if (table->philo == NULL)
+	{
+		printf("Error: malloc failed for the status of each philosopher\n");
+		exit(1);
+	}
 	init_philo(table);
 }

@@ -16,10 +16,12 @@ int	main(int argc, char **argv)
 {
 	long long		fr_err;
 	long long		mu_err;
+	// long long		tr_err;
 	t_table			table;
 
 	fr_err = -1;
 	mu_err = -1;
+	// tr_err = -1;
 	prt_argc_msg(argc);
 	init_data(&table);
 	store_params(argc, argv, &table);
@@ -28,6 +30,6 @@ int	main(int argc, char **argv)
 	mu_err = init_mut(&table);
 	init_table(&table);
 	start(&table);
-	// free_table(&table, mu_err, fr_err);	
+	free_table(&table, mu_err, fr_err);	
 	return (0);
 }

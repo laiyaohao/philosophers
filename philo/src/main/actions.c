@@ -14,34 +14,21 @@
 
 void	think(t_ph_stat *philo)
 {
-	size_t	time;
-
-	time = get_time() - philo->start_time;
-	// pthread_mutex_lock(philo->prt_mut);
-	print(philo, "is thinking", time);
-	// pthread_mutex_unlock(philo->prt_mut);
+	print(philo, "is thinking");
 }
 
 void	kun(t_ph_stat *philo)
 {
-	size_t	time;
-
-	time = get_time() - philo->start_time;
-	// pthread_mutex_lock(philo->prt_mut);
-	print(philo, "is sleeping", time);
-	// pthread_mutex_unlock(philo->prt_mut);
+	print(philo, "is sleeping");
 	sleeep(philo->time_to_sleep);
 }
 
 void	eat(t_ph_stat *philo)
 {
-	size_t	time;
+	// size_t	time;
 
 	pthread_mutex_lock(philo->right_fork);
-	// pthread_mutex_lock(philo->prt_mut);
-	time = get_time() - philo->start_time;
-	print(philo, "has taken a fork", time);
-	// pthread_mutex_unlock(philo->prt_mut);
+	print(philo, "has taken a fork");
 	if (philo->philo_num == 1)
 	{
 		sleeep(philo->time_to_die);
@@ -49,17 +36,11 @@ void	eat(t_ph_stat *philo)
 		return ;
 	}
 	pthread_mutex_lock(philo->left_fork);
-	time = get_time() - philo->start_time;
-	// pthread_mutex_lock(philo->prt_mut);
-	print(philo, "has taken a fork", time);
-	// pthread_mutex_unlock(philo->prt_mut);
+	print(philo, "has taken a fork");
 	philo->eating = 1;
 	pthread_mutex_lock(philo->meal_mut);
 	philo->meal_time = get_time();
-	time = philo->meal_time - philo->start_time;
-	// pthread_mutex_lock(philo->prt_mut);
-	print(philo, "is eating", time);
-	// pthread_mutex_unlock(philo->prt_mut);
+	print(philo, "is eating");
 	philo->times_eaten++;
 	pthread_mutex_unlock(philo->meal_mut);
 	sleeep(philo->time_to_eat);

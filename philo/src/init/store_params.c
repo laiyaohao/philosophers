@@ -23,6 +23,8 @@ int	check_param(char *param)
 			return (0);
 		i++;
 	}
+	if (i > 10)
+		return (0);
 	return (1);
 }
 
@@ -52,7 +54,7 @@ void	store_params(int argc, char **argv, t_table *table)
 		param = argv[i];
 		if (check_param(param) == 0)
 		{
-			printf("Error: parameter is not a number or is negative\n");
+			printf("Error: parameters have error\n");
 			exit(1);
 		}
 		num = ft_atol(param);
