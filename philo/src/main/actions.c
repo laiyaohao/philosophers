@@ -23,6 +23,24 @@ void	kun(t_ph_stat *philo)
 	sleeep(philo->time_to_sleep);
 }
 
+void	odd_even(t_ph_stat *philo)
+{
+	if (philo->number % 2)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print(philo, "has taken a fork");
+		pthread_mutex_lock(philo->left_fork);
+		print(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print(philo, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+		print(philo, "has taken a fork");
+	}
+}
+
 void	eat(t_ph_stat *philo)
 {
 	if (philo->philo_num == 1)
@@ -30,10 +48,7 @@ void	eat(t_ph_stat *philo)
 		sleeep(philo->time_to_die);
 		return ;
 	}
-	pthread_mutex_lock(philo->right_fork);
-	print(philo, "has taken a fork");
-	pthread_mutex_lock(philo->left_fork);
-	print(philo, "has taken a fork");
+	odd_even(philo);
 	philo->eating = 1;
 	pthread_mutex_lock(philo->meal_mut);
 	philo->meal_time = get_time();
