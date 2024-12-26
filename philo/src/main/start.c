@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:02:43 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/23 18:14:57 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/26 18:43:56 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ void	start(t_table *table)
 	}
 	if (pthread_create(&table->checker, NULL, &(check), table->philo) != 0)
 		free_table(table, -1, -1);
-		// return (-2);
-	// if (pthread_create(&table->checker_m, NULL, &(check_m), table->philo) != 0)
-	// 	// free_table(table, -1, -1);
-	// 	return (-2);
 	i = 0;
 	if (pthread_join(table->checker, NULL) != 0)
 		free_table(table, -1, -1);
@@ -69,5 +65,4 @@ void	start(t_table *table)
 			free_table(table, -1, -1);
 		i++;
 	}
-	// return (-1);
 }

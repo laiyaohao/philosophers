@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:46:13 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/23 16:19:16 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/26 18:20:15 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	init_frm_table(t_table *table, long long i)
 	table->philo[i].prt_mut = &(table->prt_mut);
 	table->philo[i].time_to_eat = table->time_to_eat;
 	table->philo[i].time_to_sleep = table->time_to_sleep;
-	table->philo[i].left_fork = &(table->forks[i]);
 	table->philo[i].time_to_die = table->time_to_die;
 	table->philo[i].philo_num = table->philo_num;
 	table->philo[i].must_eat_num = table->must_eat_num;
@@ -63,6 +62,7 @@ void	init_philo(t_table *table)
 		table->philo[i].start_time = table->start_time;
 		table->philo[i].times_eaten = 0;
 		table->philo[i].meal_time = table->philo[i].start_time;
+		table->philo[i].left_fork = &(table->forks[i]);
 		if (i == 0)
 			table->philo[i].right_fork = &(table->forks[table->philo_num - 1]);
 		else
@@ -94,8 +94,8 @@ int	init_mut(t_table *table)
 void	init_table(t_table *table)
 {
 	table->dead = 0;
-	table->start_time = get_time();
 	table->philo = malloc(sizeof(t_ph_stat) * table->philo_num);
+	table->start_time = get_time();
 	if (table->philo == NULL)
 	{
 		printf("Error: malloc failed for the status of each philosopher\n");

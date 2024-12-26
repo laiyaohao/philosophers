@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/23 16:19:03 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/26 16:35:28 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_table
 	pthread_mutex_t		meal_mut;
 	pthread_mutex_t		time_mut;
 	pthread_t			checker;
-	// pthread_t			checker_m;
 	t_ph_stat			*philo;
 	long long			time_to_die;
 	long long			time_to_eat;
@@ -76,7 +75,6 @@ void				*check(void *arg);
 void				print(t_ph_stat *philo, char *msg);
 void				sleeep(long long ms);
 long long			get_time(void);
-long long			get_start_time(t_ph_stat *philo);
 
 // cleanup functions
 void				free_table(t_table *table, long long mu_err, \

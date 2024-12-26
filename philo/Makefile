@@ -6,13 +6,13 @@
 #    By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/27 17:31:03 by ylai              #+#    #+#              #
-#    Updated: 2024/12/23 16:22:21 by ylai             ###   ########.fr        #
+#    Updated: 2024/12/26 17:08:13 by ylai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := philo
 CC := cc
-CFLAGS := -Wall -Werror -Wextra -g
+CFLAGS := -Wall -Werror -Wextra -g #-fsanitize=thread
 SRC_FOLDER := src/
 
 INIT_FOLDER := init/

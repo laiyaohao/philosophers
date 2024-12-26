@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:24:50 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/23 17:45:51 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/26 15:48:33 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,11 @@ int	find_death(t_ph_stat *philo)
 	long long	i;
 
 	i = 0;
-	// time = 0;
 	while (i < philo->philo_num)
 	{
 		if (is_dead(philo, i))
 		{
-			// time = time - philo[i].start_time;
-			// pthread_mutex_lock(philo->prt_mut);
 			print(&(philo[i]), "died");
-			// pthread_mutex_unlock(philo->prt_mut);
 			pthread_mutex_lock(philo->dead_mut);
 			*philo->dead = 1;
 			pthread_mutex_unlock(philo->dead_mut);
@@ -80,12 +76,10 @@ int	ful_meal_req(t_ph_stat *philo)
 void	*check(void *arg)
 {
 	t_ph_stat	*philo;
-	// long long	time;
 
 	philo = (t_ph_stat *)arg;
 	while (1)
 	{
-		// time = get_time();
 		usleep(1000);
 		if (find_death(philo) == 1 || ful_meal_req(philo) == 1)
 			break ;
