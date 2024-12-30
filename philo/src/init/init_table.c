@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:46:13 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/26 18:20:15 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/30 19:02:30 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ int	init_forks(t_table *table)
 void	init_frm_table(t_table *table, long long i)
 {
 	table->philo[i].dead = &(table->dead);
+	table->philo[i].start = &(table->start);
 	table->philo[i].dead_mut = &(table->dead_mut);
 	table->philo[i].meal_mut = &(table->meal_mut);
 	table->philo[i].prt_mut = &(table->prt_mut);
+	table->philo[i].time_mut = &(table->time_mut);
 	table->philo[i].time_to_eat = table->time_to_eat;
 	table->philo[i].time_to_sleep = table->time_to_sleep;
 	table->philo[i].time_to_die = table->time_to_die;
@@ -88,6 +90,11 @@ int	init_mut(t_table *table)
 		printf("Error: pthread_mutex_init failed\n");
 		return (3);
 	}
+	if (pthread_mutex_init(&(table->time_mut), NULL))
+	{
+		printf("Error: pthread_mutex_init failed\n");
+		return (4);
+	}
 	return (-1);
 }
 
@@ -96,6 +103,7 @@ void	init_table(t_table *table)
 	table->dead = 0;
 	table->philo = malloc(sizeof(t_ph_stat) * table->philo_num);
 	table->start_time = get_time();
+	table->start = 0;
 	if (table->philo == NULL)
 	{
 		printf("Error: malloc failed for the status of each philosopher\n");

@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/26 16:35:28 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/30 17:53:32 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_ph_stat
 	long long			time_to_die;
 	long long			number;
 	int					*dead;
+	int					*start;
 	long long			times_eaten;
 	int					eating;
 	long long			must_eat_num;
@@ -58,6 +59,7 @@ typedef struct s_table
 	long long			philo_num;
 	long long			start_time;
 	int					dead;
+	int					start;
 }							t_table;
 
 // init functions

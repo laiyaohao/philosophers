@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:10:51 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/16 17:32:35 by ylai             ###   ########.fr       */
+/*   Updated: 2024/12/30 17:41:47 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	free_mut(t_table *table, long long mu_err)
 		pthread_mutex_destroy(&(table->dead_mut));
 		pthread_mutex_destroy(&(table->meal_mut));
 		pthread_mutex_destroy(&(table->prt_mut));
+		pthread_mutex_destroy(&(table->time_mut));
 	}
 	if (mu_err == 2LL)
 		pthread_mutex_destroy(&(table->dead_mut));
@@ -44,6 +45,12 @@ void	free_mut(t_table *table, long long mu_err)
 	{
 		pthread_mutex_destroy(&(table->dead_mut));
 		pthread_mutex_destroy(&(table->meal_mut));
+	}
+	if (mu_err == 4LL)
+	{
+		pthread_mutex_destroy(&(table->dead_mut));
+		pthread_mutex_destroy(&(table->meal_mut));
+		pthread_mutex_destroy(&(table->prt_mut));
 	}
 }
 
