@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:02:43 by ylai              #+#    #+#             */
-/*   Updated: 2025/01/04 15:00:06 by ylai             ###   ########.fr       */
+/*   Updated: 2025/01/09 18:01:22 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	check_death(t_ph_stat *philo)
 void	syncc(t_ph_stat *philo)
 {
 	pthread_mutex_lock(philo->time_mut);
-	while (philo->start == 0)
-	{
-		pthread_mutex_unlock(philo->time_mut);
-		usleep(100);
-		pthread_mutex_lock(philo->time_mut);
-	}
+	// while (philo->start == 0)
+	// {
+	// 	pthread_mutex_unlock(philo->time_mut);
+	// 	usleep(100);
+	// 	pthread_mutex_lock(philo->time_mut);
+	// }
 	pthread_mutex_unlock(philo->time_mut);
 }
 
@@ -60,19 +60,19 @@ void	start(t_table *table)
 	int	i;
 
 	i = -1;
+	pthread_mutex_lock(&table->time_mut);
 	while (++i < table->philo_num)
 	{
 		if (pthread_create(&table->philo[i].t_id, NULL, &strt_rou, \
 		&(table->philo[i])) != 0)
 			free_table(table, -1, -1);
 	}
-	usleep(100000);
-	pthread_mutex_lock(&table->time_mut);
+	// usleep(100000);
+	if (pthread_create(&table->checker, NULL, &(check), table->philo) != 0)
+		free_table(table, -1, -1);
 	table->start_time = get_time();
 	table->start = 1;
 	pthread_mutex_unlock(&table->time_mut);
-	if (pthread_create(&table->checker, NULL, &(check), table->philo) != 0)
-		free_table(table, -1, -1);
 	i = -1;
 	if (pthread_join(table->checker, NULL) != 0)
 		free_table(table, -1, -1);

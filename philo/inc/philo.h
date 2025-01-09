@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/30 17:53:32 by ylai             ###   ########.fr       */
+/*   Updated: 2025/01/09 18:02:27 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ void				check_data(t_table *table, int argc);
 void				init_table(t_table *table);
 int					init_forks(t_table *table);
 int					init_mut(t_table *table);
+void	syncc(t_ph_stat *philo);
 
 // utils functions
 long				ft_atol(const char *nptr);
 void				prt_argc_msg(int argc);
 void				*check(void *arg);
-void				print(t_ph_stat *philo, char *msg);
+void				print(t_ph_stat *philo, char *msg, long long time);
 void				sleeep(long long ms);
 long long			get_time(void);
 
