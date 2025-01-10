@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:15 by ylai              #+#    #+#             */
-/*   Updated: 2025/01/09 18:02:27 by ylai             ###   ########.fr       */
+/*   Updated: 2025/01/10 20:18:31 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_ph_stat
 	int					*dead;
 	int					*start;
 	long long			times_eaten;
-	int					eating;
 	long long			must_eat_num;
 	long long			philo_num;
 }							t_ph_stat;
@@ -69,7 +68,7 @@ void				check_data(t_table *table, int argc);
 void				init_table(t_table *table);
 int					init_forks(t_table *table);
 int					init_mut(t_table *table);
-void	syncc(t_ph_stat *philo);
+void				syncc(t_ph_stat *philo);
 
 // utils functions
 long				ft_atol(const char *nptr);

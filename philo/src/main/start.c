@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:02:43 by ylai              #+#    #+#             */
-/*   Updated: 2025/01/09 18:01:22 by ylai             ###   ########.fr       */
+/*   Updated: 2025/01/10 20:17:26 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ int	check_death(t_ph_stat *philo)
 void	syncc(t_ph_stat *philo)
 {
 	pthread_mutex_lock(philo->time_mut);
-	// while (philo->start == 0)
-	// {
-	// 	pthread_mutex_unlock(philo->time_mut);
-	// 	usleep(100);
-	// 	pthread_mutex_lock(philo->time_mut);
-	// }
 	pthread_mutex_unlock(philo->time_mut);
 }
 
@@ -67,7 +61,6 @@ void	start(t_table *table)
 		&(table->philo[i])) != 0)
 			free_table(table, -1, -1);
 	}
-	// usleep(100000);
 	if (pthread_create(&table->checker, NULL, &(check), table->philo) != 0)
 		free_table(table, -1, -1);
 	table->start_time = get_time();

@@ -6,37 +6,42 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:24:50 by ylai              #+#    #+#             */
-/*   Updated: 2025/01/09 18:02:02 by ylai             ###   ########.fr       */
+/*   Updated: 2025/01/10 20:18:05 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
 
-int	is_dead(t_ph_stat *philo, unsigned int i)
+long long	is_dead(t_ph_stat *philo, unsigned int i)
 {
+	long long	ctime;
+
 	pthread_mutex_lock(philo->meal_mut);
-	if (get_time() - philo[i].meal_time > philo->time_to_die)
+	ctime = get_time();
+	if (ctime - philo[i].meal_time > philo->time_to_die)
 	{
 		pthread_mutex_unlock(philo->meal_mut);
-		return (1);
+		print(&(philo[i]), "died", ctime);
+		pthread_mutex_lock(philo->dead_mut);
+		*philo->dead = 1;
+		pthread_mutex_unlock(philo->dead_mut);
+		return (ctime);
 	}
 	pthread_mutex_unlock(philo->meal_mut);
-	return (0);
+	return (-1);
 }
 
 int	find_death(t_ph_stat *philo)
 {
 	long long	i;
+	long long	de;
 
 	i = 0;
 	while (i < philo->philo_num)
 	{
-		if (is_dead(philo, i))
+		de = is_dead(philo, i);
+		if (de != -1)
 		{
-			print(&(philo[i]), "died", get_time());
-			pthread_mutex_lock(philo->dead_mut);
-			*philo->dead = 1;
-			pthread_mutex_unlock(philo->dead_mut);
 			return (1);
 		}
 		i++;

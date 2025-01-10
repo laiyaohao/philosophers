@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:46:13 by ylai              #+#    #+#             */
-/*   Updated: 2024/12/30 19:02:30 by ylai             ###   ########.fr       */
+/*   Updated: 2025/01/10 20:18:23 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	init_philo(t_table *table)
 	{
 		init_frm_table(table, i);
 		table->philo[i].number = i + 1;
-		table->philo[i].eating = 0;
 		table->philo[i].start_time = table->start_time;
 		table->philo[i].times_eaten = 0;
 		table->philo[i].meal_time = table->philo[i].start_time;
