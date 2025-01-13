@@ -6,7 +6,7 @@
 /*   By: ylai <ylai@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 19:10:12 by ylai              #+#    #+#             */
-/*   Updated: 2025/01/10 20:16:31 by ylai             ###   ########.fr       */
+/*   Updated: 2025/01/13 21:01:13 by ylai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 void	think(t_ph_stat *philo)
 {
-	print(philo, "is thinking", get_time());
+	long long	time;
+
+	time = get_time();
+	print(philo, "is thinking", time);
 }
 
 void	kun(t_ph_stat *philo)
 {
-	print(philo, "is sleeping", get_time());
+	long long	time;
+
+	time = get_time();
+	print(philo, "is sleeping", time);
 	sleeep(philo->time_to_sleep);
 }
 
